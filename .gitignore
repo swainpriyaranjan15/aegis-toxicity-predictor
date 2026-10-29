@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+
+# Data and large models (do not commit model weights to git)
+data/
+models/**/*.pt
+models/**/*.safetensors
+models/**/*.bin
+
+# System and logs
+*.log
+.DS_Store
+Thumbs.db
+cloudflared.exe
+

@@ -1,0 +1,55 @@
+{
+  "evaluation_split": "test (held-out)",
+  "test_size": 15958,
+  "threshold": 0.5,
+  "macro_f1": 0.651,
+  "micro_f1": 0.7573,
+  "mean_roc_auc": 0.9903,
+  "element_wise_hamming_accuracy": 0.9794,
+  "subset_exact_match_accuracy": 0.9087,
+  "accuracy_explanation": "Element-wise (Hamming) accuracy is high (~97-98%) on imbalanced multi-label data because negative instances constitute ~96% of all comment-label pairs; a model predicting all zeros would mechanically achieve ~96% Hamming accuracy, which is why Subset accuracy and Macro-F1 are far more rigorous.",
+  "per_label": {
+    "toxic": {
+      "precision": 0.7503,
+      "recall": 0.8797,
+      "f1": 0.8099,
+      "support": 1530,
+      "roc_auc": 0.9848
+    },
+    "severe_toxic": {
+      "precision": 0.3492,
+      "recall": 0.8302,
+      "f1": 0.4916,
+      "support": 159,
+      "roc_auc": 0.9929
+    },
+    "obscene": {
+      "precision": 0.7302,
+      "recall": 0.916,
+      "f1": 0.8126,
+      "support": 845,
+      "roc_auc": 0.9923
+    },
+    "threat": {
+      "precision": 0.4054,
+      "recall": 0.6667,
+      "f1": 0.5042,
+      "support": 45,
+      "roc_auc": 0.9908
+    },
+    "insult": {
+      "precision": 0.6431,
+      "recall": 0.8793,
+      "f1": 0.7429,
+      "support": 787,
+      "roc_auc": 0.9894
+    },
+    "identity_hate": {
+      "precision": 0.4364,
+      "recall": 0.7254,
+      "f1": 0.545,
+      "support": 142,
+      "roc_auc": 0.9917
+    }
+  }
+}

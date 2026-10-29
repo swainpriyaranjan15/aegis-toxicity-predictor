@@ -1,0 +1,55 @@
+{
+  "model_version": "Model V4",
+  "base_model": "distilbert-base-uncased",
+  "num_labels": 6,
+  "label_order": [
+    "toxic",
+    "severe_toxic",
+    "obscene",
+    "threat",
+    "insult",
+    "identity_hate"
+  ],
+  "max_len": 128,
+  "default_threshold": 0.5,
+  "seed": 42,
+  "split_sizes": {
+    "train": 127656,
+    "val": 15957,
+    "test": 15958
+  },
+  "pos_weights": {
+    "toxic": 3.0714285373687744,
+    "severe_toxic": 9.956021308898926,
+    "obscene": 4.229611396789551,
+    "threat": 10.0,
+    "insult": 4.388214588165283,
+    "identity_hate": 10.0
+  },
+  "hyperparameters": {
+    "batch_size": 16,
+    "grad_accum_steps": 2,
+    "effective_batch_size": 32,
+    "learning_rate": 2e-05,
+    "epochs": 3,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.06,
+    "max_grad_norm": 1.0,
+    "mixed_precision": "fp16"
+  },
+  "best_epoch": 3,
+  "best_val_macro_f1": 0.6638,
+  "total_training_time_sec": 2263.1,
+  "training_date": "2026-10-30T01:29:47.896083",
+  "compute_tier": "Tier 1 - NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "smoke_test": false,
+  "reduced_data": false,
+  "thresholds": {
+    "toxic": 0.77,
+    "severe_toxic": 0.86,
+    "obscene": 0.84,
+    "threat": 0.86,
+    "insult": 0.75,
+    "identity_hate": 0.78
+  }
+}

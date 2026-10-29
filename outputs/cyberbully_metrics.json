@@ -1,0 +1,38 @@
+{
+  "dataset": "cb_multi_labeled_balanced.csv",
+  "num_classes": 4,
+  "classes": [
+    "not_cyberbullying",
+    "ethnicity/race",
+    "gender/sexual",
+    "religion"
+  ],
+  "test_accuracy": 0.7733,
+  "macro_f1": 0.6581,
+  "per_class": {
+    "not_cyberbullying": {
+      "precision": 0.6962,
+      "recall": 0.9994,
+      "f1": 0.8207,
+      "support": 5000
+    },
+    "ethnicity/race": {
+      "precision": 0.9922,
+      "recall": 0.7459,
+      "f1": 0.8516,
+      "support": 1700
+    },
+    "gender/sexual": {
+      "precision": 0.9697,
+      "recall": 0.0188,
+      "f1": 0.0369,
+      "support": 1700
+    },
+    "religion": {
+      "precision": 0.9503,
+      "recall": 0.8974,
+      "f1": 0.9231,
+      "support": 1599
+    }
+  }
+}

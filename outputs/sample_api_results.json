@@ -1,0 +1,75 @@
+[
+  {
+    "text": "People should respect each other's beliefs and treat each other kindly.",
+    "prediction": "Non-toxic",
+    "score": 0.0006,
+    "score_percent": 0.06,
+    "highest_label": "toxic",
+    "confidence": 0.0006,
+    "probabilities": {
+      "toxic": 0.0006,
+      "severe_toxic": 0.0001,
+      "obscene": 0.0003,
+      "threat": 0.0002,
+      "insult": 0.0003,
+      "identity_hate": 0.0003
+    },
+    "detected_labels": [],
+    "severity": "None",
+    "moderation_action": "allow",
+    "reason": "No toxic patterns detected; comment allowed.",
+    "threshold": 0.5,
+    "inference_ms": 572.57
+  },
+  {
+    "text": "You are an absolute idiot and a worthless loser, get lost!",
+    "prediction": "Toxic",
+    "score": 0.9964,
+    "score_percent": 99.64,
+    "highest_label": "toxic",
+    "confidence": 0.9964,
+    "probabilities": {
+      "toxic": 0.9964,
+      "severe_toxic": 0.1394,
+      "obscene": 0.9077,
+      "threat": 0.0097,
+      "insult": 0.991,
+      "identity_hate": 0.0284
+    },
+    "detected_labels": [
+      "toxic",
+      "obscene",
+      "insult"
+    ],
+    "severity": "High",
+    "moderation_action": "hide",
+    "reason": "Multiple toxicity indicators detected (toxic, obscene, insult); hidden to protect community.",
+    "threshold": 0.5,
+    "inference_ms": 7.83
+  },
+  {
+    "text": "The word 'idiot' is considered offensive in formal debates, though people use it casually.",
+    "prediction": "Toxic",
+    "score": 0.9378,
+    "score_percent": 93.78,
+    "highest_label": "toxic",
+    "confidence": 0.9378,
+    "probabilities": {
+      "toxic": 0.9378,
+      "severe_toxic": 0.0006,
+      "obscene": 0.1529,
+      "threat": 0.0007,
+      "insult": 0.6895,
+      "identity_hate": 0.0035
+    },
+    "detected_labels": [
+      "toxic",
+      "insult"
+    ],
+    "severity": "High",
+    "moderation_action": "hide",
+    "reason": "Multiple toxicity indicators detected (toxic, insult); hidden to protect community.",
+    "threshold": 0.5,
+    "inference_ms": 9.34
+  }
+]

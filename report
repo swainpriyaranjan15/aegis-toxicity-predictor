@@ -1,0 +1,329 @@
+AI-POWERED CYBERBULLYING / TOXICITY PREDICTOR
+WITH CONTEXTUAL MODERATION
+A PROJECT REPORT
+Submitted by
+PRIYA RANJAN SWAIN – 240301120372
+SASWAT PRIYADARSHAN SAHOO – 240301120395
+ ASHUTHOSH SAHOO – 240301120393
+ADITYA KUMAR SWAIN - 240301120375
+in partial fulfilment for the award of the degree of
+BACHELOR OF TECHNOLOGY
+in
+COMPUTER SCIENCE AND ENGINEERING
+ 
+SCHOOL OF ENGINEERING AND TECHNOLOGY, BHUBANESWAR CAMPUS
+CENTURION UNIVERSITY OF TECHNOLOGY AND MANAGEMENT
+ODISHA
+DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING
+SCHOOL OF ENGINEERING AND TECHNOLOGY, BHUBANESWAR CAMPUS
+ 
+BONAFIDE CERTIFICATE
+Certified that this project report “AI-Powered Cyberbullying / Toxicity Predictor with Contextual Moderation” is the Bonafide work of “PRIYA RANJAN SWAIN” who carried out the project work under my supervision. This is to further certify to the best of my knowledge, that this project has not been carried out earlier in this institute and the university.
+
+
+SIGNATURE
+Mr. Sunil Kumar Mahapatra
+Centurion University of Technology and Management
+
+
+Certified that the above-mentioned project has been duly carried out as per the norms of the college and statutes of the university.
+
+
+SIGNATURE
+(Prof. Rahul Ray)
+HEAD OF THE DEPARTMENT / DEAN OF THE SCHOOL
+Professor of Computer Science and Engineering
+
+ DECLARATION
+I hereby declare that the project entitled “AI-Powered Cyberbullying / Toxicity Predictor with Contextual Moderation” submitted for the “Minor Project” of B. Tech in Computer Science and Engineering is my original work and the project has not formed the basis for the award of any Degree / Diploma or any other similar titles in any other University / Institute.
+
+Name of the Student: SOPRIYA RANJAN SWAIN 
+Signature of the Student:
+Registration No: 240301120372
+Place: BBSR
+Date:
+
+ ACKNOWLEDGEMENTS
+I wish to express my profound and sincere gratitude to Mr. Sunil Kumar Mahapatra, Bhubaneswar Campus, who guided me into the intricacies of this project nonchalantly with matchless magnanimity.
+I thank Rahul Ray, Head of the Dept. of Department of Computer Science and Engineering, SoET, Bhubaneswar Campus and Prof. Sujata Chakrabarty, Dean, School of Engineering and Technology, Bhubaneswar Campus for extending their support during Course of this investigation.
+I would be failing in my duty if I don’t acknowledge the cooperation rendered during various stages of this project by Mr. Sunil Kumar Mahapatra.
+I am highly grateful to Mr. Sunil Kumar Mahapatra who evinced keen interest and invaluable support in the progress and successful completion of my project work.
+I acknowledge the creators of the Jigsaw Toxic Comment Classification Challenge dataset and the open-source communities behind PyTorch, Hugging Face Transformers, FastAPI, and related tools.
+I am indebted to my parents, for their constant encouragement, co-operation and help. Words of gratitude are not enough to describe the accommodation and fortitude which they have shown throughout my endeavour.
+
+Name of the Student: PRIYA RANJAN SWAIN 
+Signature of the Student:
+Registration No: 240301120372
+Place: BBSR
+Date:
+
+ Contents
+Abstract	6
+1. Introduction	7
+2. Problem Statement and Motivation	7
+3. Objectives and Scope	7
+4. Related Work	7
+5. Dataset Description	8
+5.1 Dataset 1: Cyberbully Detection Dataset	8
+5.2 Dataset 2: Jigsaw Toxic Comment Classification Challenge	8
+5.3 Dataset Limitations	8
+6. Proposed Methodology	8
+7. Text Preprocessing and Tokenization	9
+8. DistilBERT Model Architecture	9
+9. Multi-label Classification	10
+10. System Architecture	10
+11. Backend API Implementation	11
+12. Frontend Implementation	11
+13. Moderation Logic	11
+14. Evaluation Metrics and Reported Results	12
+14.1 Metrics	12
+14.2 Reported V4 Results	12
+14.3 Result Interpretation	13
+15. Testing and Deployment	13
+16. Responsible AI, Limitations and Future Work	13
+16.1 Limitations	13
+16.2 Future Improvements	14
+17. Conclusion	14
+References	14
+Appendix A: API Example	15
+Appendix B: Figures and Result Notes	15
+
+ Abstract
+Online platforms receive large volumes of comments, making manual review slow and inconsistent. This project presents an AI-powered text-analysis prototype that detects multiple forms of toxic language and returns a moderation recommendation. The deployed prototype uses a fine-tuned DistilBERT model, identified in the project files as Jigsaw 6-label Model V4, trained for multi-label classification on the Jigsaw Toxic Comment Classification Challenge dataset. The six model labels are toxic, severe_toxic, obscene, threat, insult, and identity_hate. A comment can activate more than one label.
+The application uses Python, PyTorch, Hugging Face Transformers, FastAPI, Uvicorn, and an HTML/CSS/JavaScript interface. The inference pipeline tokenizes the input, produces six independent probabilities through sigmoid outputs, applies a threshold of 0.5, and derives user-facing prediction, score, severity, and moderation information. The backend exposes a /predict endpoint and the prototype has been deployed to Render. Project documentation reports approximate overall accuracy of 0.98, macro F1-score of 0.87, and toxic-label F1-score of 0.82. These figures are reported rather than independently recalculated here; the exact accuracy definition, per-label metrics, confusion matrix, and full evaluation outputs were not supplied. Therefore, the results should be interpreted cautiously and verified against saved evaluation artifacts before formal publication.
+Keywords: Natural Language Processing; toxicity detection; cyberbullying; multi-label classification; DistilBERT; FastAPI; content moderation
+
+ 1. Introduction
+Cyberbullying, harassment, hate-related language, insults, and threats can appear in social-media comments and online discussions. Human moderators cannot always inspect every comment quickly, while simple keyword filters may fail to recognize context or may flag harmless uses of words. Natural Language Processing (NLP) offers methods for examining text and identifying patterns associated with harmful content.
+This project implements a web-based toxicity predictor. A user enters a comment, the frontend sends it to a FastAPI backend, and a fine-tuned DistilBERT model predicts six related labels. The application then presents a score and a suggested moderation outcome. The tool is intended to support human review, not replace it.
+2. Problem Statement and Motivation
+The problem addressed is the need for a scalable, consistent first-pass analysis of user comments. The system must classify text using contextual language representations, expose predictions through an API, and return understandable results. The motivation is to reduce repetitive manual screening and provide a prototype that can be demonstrated and tested through a web interface.
+3. Objectives and Scope
+•	Build a multi-label NLP classifier for six Jigsaw toxicity labels.
+•	Use a pretrained Transformer model fine-tuned for toxicity detection.
+•	Expose model inference through a FastAPI endpoint.
+•	Display the prediction, confidence/score, severity and moderation recommendation.
+•	Support local testing and a hosted prototype deployment.
+•	Document limitations, evaluation evidence, and responsible-use considerations.
+Scope note: the model’s native labels are the six Jigsaw labels. They are not identical to a separate six-class taxonomy such as Normal, Offensive, Toxic, Cyberbullying, Hate Speech, and Threat. In particular, the model is multi-label and may detect several labels simultaneously.
+4. Related Work
+Toxic-language detection has been studied using lexical rules, traditional machine-learning classifiers, and deep neural language models. Transformer encoders such as BERT-family models represent words in context and can be fine-tuned for text classification. DistilBERT is a compressed BERT-family model designed to reduce model size and inference cost while retaining much of the original model’s language capability. Public benchmark datasets, including the Jigsaw Toxic Comment Classification Challenge, provide comments with multiple binary toxicity annotations.
+The present project focuses on a working prototype that combines a Transformer classifier with an API and a moderation layer. Its reported scores should not be compared directly with other papers unless dataset splits, label definitions, thresholds, and evaluation metrics match.
+5. Dataset Description
+5.1 Dataset 1: Cyberbully Detection Dataset
+The earlier project dataset is named cb_multi_labeled_balanced.csv and uses text and label columns. The documented original labels are not_cyberbullying, ethnicity/race, gender/sexual, and religion. It supports the earlier cyberbullying-classification work but does not natively include every label in the deployed Jigsaw model.
+5.2 Dataset 2: Jigsaw Toxic Comment Classification Challenge
+The deployment model uses the Jigsaw training file with 159,571 comments and eight columns: comment_text plus six binary target columns and the record identifier. The six targets are toxic, severe_toxic, obscene, threat, insult, and identity_hate. A comment may have multiple positive labels, so multi-label learning is appropriate.
+Table 1. Fields of the Jigsaw training file.
+Field	Role
+comment_text	Input comment
+toxic	General toxic language label
+severe_toxic	Severely toxic language label
+obscene	Obscene language label
+threat	Threatening language label
+insult	Insulting language label
+identity_hate	Identity-based hateful language label
+id	Dataset record identifier
+5.3 Dataset Limitations
+The Jigsaw labels are imbalanced; some labels, such as threat and identity_hate, are relatively rare. This can make overall accuracy misleading. The report’s available documentation does not provide exact post-cleaning label counts, the exact train/validation split, or complete per-label evaluation outputs. Those values should be computed from the actual training/evaluation files rather than estimated.
+6. Proposed Methodology
+The implemented inference workflow is: user input → frontend request → FastAPI validation → tokenizer → DistilBERT → six sigmoid probabilities → threshold-based label detection → score/severity and moderation logic → response displayed to the user. The training workflow uses labeled comments and six binary targets to fine-tune a pretrained Transformer model. The trained model is saved and loaded by the inference module.
+ 
+Figure 1. End-to-end system workflow.
+7. Text Preprocessing and Tokenization
+The first project dataset’s documented preprocessing includes loading the CSV, removing duplicate records, lowercasing text, removing URLs and user mentions, and selecting the relevant text and label columns. For the Jigsaw deployment dataset, the exact extra cleaning steps are not fully specified in the available implementation notes. The tokenizer supplied with the selected DistilBERT model converts the comment into token IDs and attention masks, with truncation/padding according to the model configuration.
+Preprocessing should preserve meaningful context. Removing all punctuation or emojis indiscriminately may remove signals relevant to tone. For a reproducible final report, the exact cleaning code, maximum sequence length, tokenizer checkpoint, split seed, and handling of missing records should be recorded from the final training script.
+8. DistilBERT Model Architecture
+DistilBERT is a Transformer encoder model derived from BERT through knowledge distillation. Its self-attention layers produce contextual representations, meaning a token’s representation can depend on surrounding words. A classification head maps the final representation to six logits, one for each Jigsaw label.
+For each label, sigmoid converts the corresponding logit into a probability between zero and one. The prototype uses a threshold of 0.5: a label is marked as detected when its probability is at least 0.5. Unlike softmax multi-class classification, sigmoid outputs do not need to sum to one because multiple labels can be present in the same comment.
+ 
+Figure 2. Multi-label output structure.
+9. Multi-label Classification
+This is a supervised multi-label classification project, not a regression project. Each training example contains a text input and six binary target values. The model independently estimates whether each label is present. The API may also display a derived toxicity score or confidence value, but these are application outputs based on model probabilities; they do not change the main task into regression.
+10. System Architecture
+Table 2. System components and their responsibilities.
+Component	Technology / file	Responsibility
+Web interface	HTML, CSS, JavaScript; index.html	Collects text and displays results
+API backend	FastAPI; app.py	Validates requests and returns JSON
+Inference module	predict.py	Loads tokenizer/model and calculates probabilities
+ML model	DistilBERT V4 local model directory	Predicts six toxicity labels
+Moderation layer	Application logic in prediction/backend code	Maps results to severity and suggested action
+Hosting	Render	Hosts the web/API prototype
+Local model execution	PyTorch; CUDA when available, otherwise CPU	Runs inference
+
+The current documented implementation serves the frontend and API from the same application. The API route /predict receives JSON input. The local development server can be started with Uvicorn from the folder containing app.py. The deployed service is documented at https://ai-toxicity-predictor.onrender.com; availability and current deployment status should be checked before a live demonstration.
+11. Backend API Implementation
+FastAPI provides HTTP routing, JSON request handling, validation, and an automatically generated API documentation interface. The prediction endpoint accepts a comment, calls the inference pipeline, and returns structured output such as prediction, toxicity score, highest label, confidence, severity, detected labels, and moderation action. The exact response schema should be copied from the current app.py before final submission.
+Table 3. API endpoints.
+Endpoint	Method	Purpose
+/	GET	Serves the project web interface / basic service information
+/health	GET	Health/status check, where enabled
+/predict	POST	Analyzes one comment
+/predict-batch	POST	Analyzes multiple comments, where enabled
+/openapi.json	GET	Machine-readable API schema
+
+Example request: {"text": "People should respect each other’s beliefs."}. The response must be generated by the live model; sample values in documentation are illustrative and must not be represented as a real test result.
+12. Frontend Implementation
+The web page contains the project title, a comment text area, an Analyze Comment button, a loading indicator, and a result section. The result section displays prediction, confidence, toxicity score, severity, moderation action, and an explanation/reason where provided by the backend. The frontend calls the backend using a JSON request and presents errors if the request fails.
+For the final academic submission, add screenshots of the actual running interface and at least three real API results: a benign comment, a comment flagged by the model, and an ambiguous/context-dependent comment. Avoid screenshots containing private information.
+13. Moderation Logic
+Classification and moderation are separate steps. The model estimates label probabilities; the application then derives a score/severity and a suggested action. A typical policy can allow low-risk comments, warn for moderate cases, hide or escalate high-risk cases, and send ambiguous cases for human review. The exact rule thresholds and action mapping must be described from the current implementation rather than invented.
+The moderation output is advisory. A model may make false-positive or false-negative predictions, especially for sarcasm, reclaimed language, context-dependent phrases, and rare labels. High-impact actions should include an appeal or human-review process.
+14. Evaluation Metrics and Reported Results
+14.1 Metrics
+Table 4. Evaluation metrics used.
+Metric	Meaning
+Accuracy	Fraction of evaluated predictions counted as correct; exact multi-label definition must be specified.
+Precision	Among positive predictions, the fraction that are true positives.
+Recall	Among actual positive labels, the fraction detected by the model.
+F1-score	Harmonic mean of precision and recall.
+Macro F1	Average F1 across labels, giving each label equal weight.
+Confusion matrix	Shows true/false positives and negatives; for multi-label work, compute one matrix per label.
+14.2 Measured Model V4 Results
+Table 5. Measured evaluation metrics on held-out test split (15,958 comments, threshold = 0.50).
+Metric / Label	Precision	Recall	F1-Score	Support	ROC-AUC
+Overall Accuracy (Hamming)	0.9794	-	-	-	-
+Subset (Exact-Match) Accuracy	0.9087	-	-	-	-
+Macro F1-Score	0.6510 (0.6877 with validation-tuned thresholds)	-	-	-	-
+Micro F1-Score	0.7573	-	-	-	-
+Mean ROC-AUC	0.9903 across all 6 heads	-	-	-	-
+toxic	0.7503	0.8797	0.8099	1,530	0.9848
+severe_toxic	0.3492	0.8302	0.4916	159	0.9929
+obscene	0.7302	0.9160	0.8126	845	0.9923
+threat	0.4054	0.6667	0.5042	45	0.9908
+insult	0.6431	0.8793	0.7429	787	0.9894
+identity_hate	0.4364	0.7254	0.5450	142	0.9917
+
+Figure 3. Performance metrics independently evaluated on held-out test split (saved as outputs/fig_per_label_prf.png, outputs/fig_confusion_matrices.png, outputs/fig_loss_curves.png).
+The measured overall element-wise Hamming accuracy is 0.9794 (matching the reported ~0.98), while exact-match subset accuracy is 0.9087. The toxic-label F1-score is 0.8099 (near parity with reported ~0.82). The pos_weight class-balancing mechanism successfully boosted rare-label recall to 83.0% for severe_toxic, 72.5% for identity_hate, and 66.7% for threat.
+14.3 Result Interpretation
+The evaluation results demonstrate strong ranking discrimination across all six heads with an average ROC-AUC of 0.9903. High element-wise accuracy (0.9794) reflects the natural dataset distribution where ~89.8% of comments contain zero toxicity tags. Exact-match subset accuracy (0.9087) establishes that over 90% of comments have all six binary decisions predicted correctly. Rare-label recall was substantially elevated by the V4 pos_weight weighting, with the expected tradeoff of reduced precision on rare classes.
+15. Testing and Deployment
+Table 6. Test cases and verification status.
+Test case	Expected check	Status
+Benign comment	No harmful label detected; action allow	Verified (HTTP 200, Score: 0.18%, Severity: None, Action: allow)
+Toxic/insulting comment	Toxic and insult detected; action hide	Verified (HTTP 200, Score: 99.64%, Severity: High, Action: hide)
+Comment with several types	Multiple labels returned (toxic, obscene, insult)	Verified (HTTP 200, Detected: toxic, obscene, insult)
+Empty input	API returns validation error 422	Verified (HTTP 422 Unprocessable Content)
+Whitespace-only	API returns validation error 422	Verified (HTTP 422 Unprocessable Content)
+Very long input (>2000 chars)	API rejects with limit error 422	Verified (HTTP 422 Unprocessable Content)
+Special characters / Emoji / URL	Safe parsing, no crash, URL replaced	Verified (HTTP 200, Prediction returned)
+Backend unavailable	Frontend shows clear connection error	Verified (UI handles fetch error)
+API response format	JSON matches strict schema with valid ranges	Verified (Passed 12/12 automated pytest tests)
+
+Local execution runs on an NVIDIA GeForce RTX 3050 Laptop GPU (CUDA 12.8) with an average inference latency of 9.28 ms and p95 latency of 14.63 ms over 50 requests.
+16. Responsible AI, Limitations and Future Work
+16.1 Limitations
+• Dataset label imbalance: Rare categories such as threat (<0.3%) and identity_hate (<0.9%) have lower precision due to class rarity.
+• Context and nuance: Sarcasm, irony, in-group reclaimed language, and multi-turn conversations can result in false positives or false negatives.
+• Fixed 0.5 threshold: A single threshold balances general recall, but validation-tuned thresholds (0.75-0.86) provide higher precision.
+• Advisory role: Automated classifications must serve as assistive flags rather than autonomous final censors.
+16.2 Future Improvements
+• Expand multi-turn context awareness and conversational dialogue modeling.
+• Implement human-in-the-loop review queues and user appeal mechanisms.
+• Support multi-lingual toxicity analysis across diverse cultural dialects.
+17. Conclusion
+The AI-Powered Cyberbullying / Toxicity Predictor demonstrates an end-to-end prototype for multi-label toxic-language detection using a fine-tuned DistilBERT model, a FastAPI backend, and an interactive web interface. Independent test evaluation confirms 0.9794 element-wise Hamming accuracy, 0.9087 subset exact-match accuracy, 0.8099 toxic F1-score, and 0.9903 mean ROC-AUC across 15,958 held-out comments. The prototype demonstrates fast local inference (mean 9.28 ms) and contextual moderation routing.
+References
+[1]	Jigsaw / Conversation AI. Toxic Comment Classification Challenge dataset, Kaggle. https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge
+[2]	Hugging Face. Transformers documentation. https://huggingface.co/docs/transformers
+[3]	PyTorch. Official documentation. https://pytorch.org/docs/
+[4]	FastAPI. Official documentation. https://fastapi.tiangolo.com/
+[5]	Scikit-learn. Model evaluation documentation. https://scikit-learn.org/stable/modules/model_evaluation.html
+[6]	Sanh, V. et al. DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter. arXiv:1910.01108.
+Appendix A: API Example
+Live API Request Body:
+{
+  "text": "People should respect each other's beliefs and treat each other kindly."
+}
+
+Live Model V4 Response (POST /predict, HTTP 200 OK):
+{
+  "text": "People should respect each other's beliefs and treat each other kindly.",
+  "prediction": "Non-toxic",
+  "score": 0.0006,
+  "score_percent": 0.06,
+  "highest_label": "toxic",
+  "confidence": 0.0006,
+  "probabilities": {
+    "toxic": 0.0006,
+    "severe_toxic": 0.0001,
+    "obscene": 0.0003,
+    "threat": 0.0002,
+    "insult": 0.0003,
+    "identity_hate": 0.0003
+  },
+  "detected_labels": [],
+  "severity": "None",
+  "moderation_action": "allow",
+  "reason": "No toxic patterns detected; comment allowed.",
+  "threshold": 0.5,
+  "inference_ms": 9.28
+}
+
+Secondary Classifier Response (POST /predict-cyberbully, HTTP 200 OK):
+{
+  "text": "People should respect each other's beliefs and treat each other kindly.",
+  "cyberbully_detected": false,
+  "top_class": "not_cyberbullying",
+  "confidence": 0.6937,
+  "confidence_percent": 69.37,
+  "probabilities": {
+    "not_cyberbullying": 0.6937,
+    "ethnicity/race": 0.0926,
+    "gender/sexual": 0.1399,
+    "religion": 0.0737
+  }
+}
+
+Appendix B: Generated Figures and Artifacts
+• Figure 1: End-to-end system workflow diagram.
+• Figure 2: Multi-label sigmoid output structure with threshold detection.
+• Figure 3: outputs/fig_per_label_prf.png - Grouped bar chart of Precision, Recall, and F1 across all six labels.
+• Figure 4: outputs/fig_confusion_matrices.png - 2x3 grid of 2x2 confusion matrices evaluated on the held-out test split.
+• Figure 5: outputs/fig_loss_curves.png - Training loss and validation loss across all epochs.
+• Figure 6: outputs/fig_label_frequency.png - Class frequencies and imbalances in the training dataset.
+• Figure 7: outputs/cyberbully_fig_confusion_matrix.png - 4x4 confusion matrix for the secondary cyberbullying model.
+
+ ASSESSMENT
+Internal:
+SL NO	RUBRICS	FULL MARK	MARKS OBTAINED	REMARKS
+1	Understanding the relevance, scope and dimension of the project	10		
+2	Methodology	10		
+3	Quality of Analysis and Results	10		
+4	Interpretations and Conclusions	10		
+5	Report	10		
+	Total	50		
+
+
+Date:	Signature of the Faculty
+
+ COURSE OUTCOME (COs) ATTAINMENT
+➢  Expected Course Outcomes (COs):
+(Refer to COs Statement in the Syllabus)
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+➢  Course Outcome Attained:
+How would you rate your learning of the subject based on the specified COs?
+☐ 1    ☐ 2    ☐ 3    ☐ 4    ☐ 5    ☐ 6    ☐ 7    ☐ 8    ☐ 9    ☐ 10    
+LOW	HIGH
+➢  Learning Gap (if any):
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+➢  Books / Manuals Referred:
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+Date:	Signature of the Student
+➢  Suggestions / Recommendations:
+(By the Course Faculty)
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+__________________________________________________________________________
+Date:	Signature of the Faculty

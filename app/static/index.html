@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AegisAI &bull; Contextual Cyberbullying &amp; Toxicity Moderation Engine</title>
+  <meta name="description" content="State-of-the-art AI-Powered Cyberbullying & Multi-Label Toxicity Detection Platform with Contextual Moderation Policy Routing powered by fine-tuned DistilBERT (Model V4).">
+  
+  <!-- Premium Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Alex+Brush&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #06080d;
+      --bg-card: rgba(13, 19, 36, 0.72);
+      --bg-card-hover: rgba(20, 30, 56, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.45);
+      --border-active: rgba(56, 189, 248, 0.55);
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+
+      /* High-end Brand Colors */
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent: #38bdf8;
+      --accent-purple: #c084fc;
+
+      /* Semantic Status Colors */
+      --safe: #10b981;
+      --safe-bg: rgba(16, 185, 129, 0.12);
+      --safe-border: rgba(16, 185, 129, 0.35);
+
+      --warn: #f59e0b;
+      --warn-bg: rgba(245, 158, 11, 0.12);
+      --warn-border: rgba(245, 158, 11, 0.35);
+
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.14);
+      --danger-border: rgba(239, 68, 68, 0.38);
+
+      --critical: #a855f7;
+      --critical-bg: rgba(168, 85, 247, 0.16);
+      --critical-border: rgba(168, 85, 247, 0.4);
+
+      --shadow-ambient: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 35px -5px rgba(99, 102, 241, 0.25);
+      --transition-smooth: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 3.5rem;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ======================================================== */
+    /* LIVE BACKGROUND LAYER: INTERACTIVE NEURAL SYNAPSE CANVAS */
+    /* ======================================================== */
+    #neural-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.85;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Animated Ambient Plasma Orbs */
+    .ambient-aurora {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+
+    .aurora-1 {
+      top: -120px;
+      left: 5%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%);
+      animation: floatAurora1 14s infinite alternate;
+    }
+
+    .aurora-2 {
+      top: 25%;
+      right: 2%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0) 70%);
+      animation: floatAurora2 18s infinite alternate;
+    }
+
+    .aurora-3 {
+      bottom: -150px;
+      left: 25%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(168, 85, 247, 0) 70%);
+      animation: floatAurora3 22s infinite alternate;
+    }
+
+    @keyframes floatAurora1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 80px) scale(1.15); }
+      100% { transform: translate(-40px, 40px) scale(0.95); }
+    }
+
+    @keyframes floatAurora2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-80px, -60px) scale(1.12); }
+      100% { transform: translate(40px, 70px) scale(0.9); }
+    }
+
+    @keyframes floatAurora3 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(70px, -50px) scale(1.18); }
+      100% { transform: translate(-50px, 30px) scale(0.92); }
+    }
+
+    /* Ambient Subtle Digital Grid */
+    .cyber-grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top Telemetry & Health Ribbon */
+    .telemetry-ribbon {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 1.25rem;
+      background: rgba(13, 19, 36, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 9999px;
+      margin-bottom: 2rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .telemetry-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .live-radar-dot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 10px;
+      height: 10px;
+    }
+    .radar-ping {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--safe);
+      opacity: 0.75;
+      animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .radar-core {
+      width: 8px;
+      height: 8px;
+      background: var(--safe);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    @keyframes ping {
+      75%, 100% {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+    }
+
+    .metric-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+    }
+    .metric-chip strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Live Canvas Toggle Pill in Ribbon */
+    .btn-live-toggle {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: var(--transition-smooth);
+    }
+    .btn-live-toggle:hover {
+      background: rgba(99, 102, 241, 0.28);
+      color: #ffffff;
+    }
+
+    /* Branding Header */
+    header {
+      text-align: center;
+      margin-bottom: 2.25rem;
+    }
+
+    /* Ultra-Stylish Eye-Catching Cursive Hero Eyebrow Line */
+    .brand-eyebrow-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.85rem;
+      position: relative;
+    }
+
+    .brand-cursive-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.2rem 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: cursiveFloat 4s ease-in-out infinite;
+      cursor: default;
+    }
+
+    .brand-cursive-line:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    @keyframes cursiveFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .cursive-shield-icon {
+      font-size: 1.55rem;
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.85));
+      display: inline-block;
+      animation: shieldPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes shieldPulse {
+      0% { transform: scale(0.95); }
+      100% { transform: scale(1.12); filter: drop-shadow(0 0 18px rgba(56, 189, 248, 1)); }
+    }
+
+    .cursive-text-content {
+      font-family: 'Dancing Script', 'Great Vibes', cursive, sans-serif;
+      font-size: clamp(1.45rem, 3.2vw, 2.15rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #38bdf8 0%, #ffffff 35%, #e0e7ff 65%, #c084fc 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: cursiveShine 5s linear infinite;
+      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.5)) drop-shadow(0 0 30px rgba(99, 102, 241, 0.35));
+    }
+
+    @keyframes cursiveShine {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3.15rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 0.85rem;
+    }
+
+    .brand-highlight {
+      background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Modern Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      background: rgba(13, 19, 36, 0.6);
+      backdrop-filter: blur(16px);
+      padding: 0.4rem;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .tab-item {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 0.65rem 1.15rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tab-item:hover:not(.active) {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-item.active {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(56, 189, 248, 0.2) 100%);
+      color: #ffffff;
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      animation: fadeInPane 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeInPane {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow-ambient);
+      margin-bottom: 2rem;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Preset Buttons Bar */
+    .presets-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .presets-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 0.25rem;
+    }
+
+    .btn-preset {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-preset:hover {
+      background: rgba(99, 102, 241, 0.18);
+      border-color: var(--border-glow);
+      color: #a5b4fc;
+      transform: translateY(-1.5px);
+    }
+
+    /* Textarea Box */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    textarea.comment-input {
+      width: 100%;
+      height: 140px;
+      background: rgba(6, 8, 13, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1.02rem;
+      padding: 1.2rem;
+      resize: vertical;
+      transition: var(--transition-smooth);
+      outline: none;
+      line-height: 1.6;
+    }
+
+    textarea.comment-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3), var(--shadow-glow);
+      background: rgba(6, 8, 13, 0.95);
+    }
+
+    .input-foot {
+      position: absolute;
+      bottom: 0.85rem;
+      right: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .char-pill {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      background: rgba(13, 19, 36, 0.85);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Action Controls */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-primary-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.9rem 2.25rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    }
+
+    .btn-primary-action:hover {
+      background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(99, 102, 241, 0.65);
+    }
+
+    .btn-primary-action:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-outline-action {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: 10px;
+      padding: 0.65rem 1.15rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-family: inherit;
+    }
+
+    .btn-outline-action:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+    }
+
+    .spinner-ring {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spinAnim 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spinAnim {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Sensitivity Slider Box */
+    .threshold-tuning-box {
+      margin-top: 1.4rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .custom-range {
+      -webkit-appearance: none;
+      width: 180px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      outline: none;
+    }
+    .custom-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    /* Alert Message Banner */
+    .alert-banner {
+      display: none;
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      color: #fca5a5;
+      font-size: 0.92rem;
+      animation: slideDownAlert 0.25s ease-out;
+    }
+
+    @keyframes slideDownAlert {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Dual Results Output Grid */
+    .results-grid {
+      display: none;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      animation: resultsFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @media (min-width: 960px) {
+      .results-grid {
+        grid-template-columns: 1.25fr 0.85fr;
+      }
+    }
+
+    @keyframes resultsFadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Privacy Guard Real-Time Notification Banner */
+    .privacy-guard-banner {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.32);
+      border-radius: 12px;
+      padding: 0.85rem 1.15rem;
+      margin-bottom: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      animation: fadeInPane 0.3s ease-out;
+    }
+
+    .privacy-guard-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .privacy-guard-text {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+    }
+    .privacy-guard-text strong {
+      color: #34d399;
+    }
+
+    .redacted-preview-drawer {
+      display: none;
+      width: 100%;
+      background: rgba(6, 8, 13, 0.75);
+      border: 1px dashed rgba(16, 185, 129, 0.35);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #a7f3d0;
+      margin-top: 0.65rem;
+      word-break: break-all;
+    }
+
+    /* Result Card Header with Gauge */
+    .result-hero-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .badge-decision {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      padding: 0.45rem 1.35rem;
+      border-radius: 12px;
+      letter-spacing: -0.01em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge-decision.toxic {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger);
+      color: #f87171;
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-decision.non-toxic {
+      background: var(--safe-bg);
+      border: 1px solid var(--safe);
+      color: #34d399;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Circular SVG Gauge */
+    .gauge-wrapper {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gauge-circle-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 6;
+    }
+    .gauge-circle-val {
+      fill: none;
+      stroke: var(--safe);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 0.8s ease, stroke 0.4s ease;
+    }
+    .gauge-text {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* Policy Decision Banner */
+    .policy-decision-banner {
+      background: rgba(13, 19, 36, 0.7);
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .policy-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .policy-action-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .pill-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pill-None { background: var(--safe-bg); color: #34d399; border: 1px solid var(--safe-border); }
+    .pill-Low { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .pill-Moderate { background: var(--warn-bg); color: #fbbf24; border: 1px solid var(--warn-border); }
+    .pill-High { background: var(--danger-bg); color: #f87171; border: 1px solid var(--danger-border); }
+    .pill-Critical { background: var(--critical-bg); color: #c084fc; border: 1px solid var(--critical-border); }
+
+    .policy-reason-text {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Stats Grid */
+    .stat-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-mini-card {
+      background: rgba(6, 8, 13, 0.55);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.85rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Probability Spectral Bars */
+    .section-headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bars-collection {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .spectrum-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .spectrum-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .spectrum-rail {
+      position: relative;
+      width: 100%;
+      height: 9px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
+      overflow: visible;
+    }
+
+    .spectrum-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+    }
+
+    .spectrum-cutoff {
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      width: 2px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.4);
+      z-index: 2;
+    }
+
+    /* Copy & Action Bar */
+    .card-footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .btn-copy-json {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition-smooth);
+    }
+    .btn-copy-json:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    /* Secondary Cyberbully Card Specifics */
+    .card-cyberbullying {
+      background: rgba(18, 14, 34, 0.78);
+      border-color: rgba(168, 85, 247, 0.28);
+    }
+
+    .cb-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(168, 85, 247, 0.18);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #e9d5ff;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    /* Batch Tab Styling */
+    .batch-input-area {
+      width: 100%;
+      height: 130px;
+      background: rgba(6, 8, 13, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-family: inherit;
+      padding: 1rem;
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      resize: vertical;
+      outline: none;
+    }
+    .batch-input-area:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+
+    table.styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+    table.styled-table th, table.styled-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    table.styled-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+    }
+    table.styled-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Lightbox Modal & Academic Figures */
+    .charts-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .chart-thumbnail-card {
+      background: rgba(6, 8, 13, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1rem;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+
+    .chart-thumbnail-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .chart-thumbnail-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #0f172a;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+    }
+
+    .chart-thumbnail-card h4 {
+      font-size: 0.92rem;
+      color: #e2e8f0;
+      margin-bottom: 0.35rem;
+    }
+    .chart-thumbnail-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast Notification */
+    .toast-popup {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1e293b;
+      border: 1px solid var(--border-glow);
+      color: #ffffff;
+      padding: 0.75rem 1.4rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+    .toast-popup.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal Image Lightbox */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+    }
+    .lightbox-close-btn {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 3.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+    .academic-disclaimer {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.85rem;
+      color: #94a3b8;
+      font-size: 0.78rem;
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+    }
+
+    /* ======================================================== */
+    /* FULLSCREEN CINEMATIC INTRO OVERLAY                       */
+    /* ======================================================== */
+    #cinematic-intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      background: radial-gradient(circle at 50% 40%, #0d1226 0%, #060913 55%, #020408 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      filter: blur(0px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease, visibility 0.85s ease;
+    }
+
+    #cinematic-intro.intro-dismissed {
+      opacity: 0;
+      transform: scale(1.08);
+      filter: blur(14px);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Ambient animated rings in intro */
+    .intro-ambient-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    }
+
+    /* Cyber Scanline */
+    .intro-scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), rgba(99, 102, 241, 0.9), transparent);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+      animation: introScan 3.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes introScan {
+      0% { top: 0%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* Quantum Core Hologram Emblem */
+    .intro-core-wrapper {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .intro-outer-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px dashed rgba(99, 102, 241, 0.45);
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.25);
+      animation: spinClockwise 18s linear infinite;
+    }
+
+    .intro-middle-ring {
+      position: absolute;
+      width: 78%;
+      height: 78%;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #38bdf8;
+      border-right-color: #c084fc;
+      border-bottom-color: rgba(56, 189, 248, 0.2);
+      animation: spinCounter 7s linear infinite;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+
+    .intro-pulse-orb {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.5) 0%, rgba(56, 189, 248, 0.2) 60%, transparent 100%);
+      animation: corePulse 2s ease-in-out infinite alternate;
+    }
+
+    .intro-core-icon {
+      position: relative;
+      z-index: 2;
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.9));
+      animation: iconFloat 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes spinClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spinCounter {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes corePulse {
+      0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+      100% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 45px rgba(56, 189, 248, 0.7); }
+    }
+    @keyframes iconFloat {
+      0% { transform: translateY(0px) scale(0.96); }
+      100% { transform: translateY(-4px) scale(1.04); }
+    }
+
+    /* Intro Typography */
+    .intro-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+
+    .intro-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.6rem, 7vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 35%, #818cf8 70%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 35px rgba(99, 102, 241, 0.5));
+      margin-bottom: 0.4rem;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .intro-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(0.95rem, 2vw, 1.25rem);
+      font-weight: 500;
+      color: #cbd5e1;
+      text-align: center;
+      max-width: 680px;
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .intro-model-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Telemetry Diagnostics Terminal Box */
+    .intro-telemetry-box {
+      width: 100%;
+      max-width: 560px;
+      background: rgba(10, 15, 30, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.6rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .intro-telemetry-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      transition: color 0.3s ease;
+    }
+    .intro-telemetry-item:last-child {
+      margin-bottom: 0;
+    }
+    .intro-telemetry-item.active {
+      color: #34d399;
+      text-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+    }
+    .intro-telemetry-item.pending {
+      color: #38bdf8;
+    }
+
+    /* Progress Bar */
+    .intro-progress-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      margin-top: 0.85rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .intro-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #38bdf8, #34d399);
+      box-shadow: 0 0 14px #38bdf8;
+      border-radius: 9999px;
+      transition: width 0.25s linear;
+    }
+
+    /* Intro Buttons */
+    .intro-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-launch-engine {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.85rem 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.45);
+      transition: var(--transition-smooth);
+    }
+    .btn-launch-engine:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 45px rgba(99, 102, 241, 0.75);
+    }
+    .btn-launch-engine.ready {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.6);
+      animation: btnPulse 1.8s infinite alternate;
+    }
+    @keyframes btnPulse {
+      0% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+      100% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.85); transform: scale(1.03); }
+    }
+
+    .btn-skip-intro {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.85rem 1.4rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .btn-skip-intro:hover {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .intro-footer-credit {
+      position: absolute;
+      bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: #64748b;
+      text-align: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* ======================================================== */
+    /* INTERACTIVE CURSOR AMBIENT SPOTLIGHT                    */
+    /* ======================================================== */
+    #cursor-light-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(99, 102, 241, 0.09) 40%, rgba(192, 132, 252, 0.03) 65%, transparent 75%);
+      filter: blur(32px);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      will-change: left, top;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Ambient Cursor Spotlight (No Point) -->
+  <div id="cursor-light-glow"></div>
+
+  <!-- ======================================================== -->
+  <!-- FULLSCREEN CINEMATIC INTRO SPLASH SCREEN                 -->
+  <!-- ======================================================== -->
+  <div id="cinematic-intro">
+    <div class="intro-ambient-grid"></div>
+    <div class="intro-scanline"></div>
+
+    <!-- Quantum Core Hologram Emblem -->
+    <div class="intro-core-wrapper">
+      <div class="intro-outer-ring"></div>
+      <div class="intro-middle-ring"></div>
+      <div class="intro-pulse-orb"></div>
+      <div class="intro-core-icon">🛡️</div>
+    </div>
+
+    <div class="intro-eyebrow">
+      <span>⚡</span>
+      <span>DEEP LEARNING NEURAL SAFETY MATRIX</span>
+      <span>⚡</span>
+    </div>
+
+    <h1 class="intro-title">AEGIS AI</h1>
+
+    <p class="intro-subtitle">
+      Contextual Cyberbullying &amp; Multi-Label Toxicity Moderation Engine
+    </p>
+
+    <div class="intro-model-badge">
+      <span>●</span>
+      <span>Model Architecture: Fine-Tuned DistilBERT (Model V4)</span>
+      <span>&bull;</span>
+      <span>CUDA RTX 3050</span>
+    </div>
+
+    <!-- Telemetry Boot Sequence -->
+    <div class="intro-telemetry-box">
+      <div class="intro-telemetry-item" id="intro-step-1">
+        <span class="step-icon">○</span>
+        <span class="step-text">Mounting DistilBERT V4 Safety Weights (models/jigsaw_v4)...</span>
+      </div>
+      <div class="intro-telemetry-item" id="intro-step-2">
+        <span class="step-icon">○</span>
+        <span class="step-text">Synchronizing RTX 3050 GPU Hardware Acceleration...</span>
+      </div>
+      <div class="intro-telemetry-item" id="intro-step-3">
+        <span class="step-icon">○</span>
+        <span class="step-text">Arming In-Flight Privacy Guard Redaction Engine...</span>
+      </div>
+      <div class="intro-telemetry-item" id="intro-step-4">
+        <span class="step-icon">○</span>
+        <span class="step-text">Calibrating Moderation Policy Engine (ROC-AUC: 0.9903)...</span>
+      </div>
+
+      <div class="intro-progress-container">
+        <div class="intro-progress-fill" id="intro-progress-fill"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-top: 0.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #94a3b8;">
+        <span>SYSTEM_BOOT_STATUS</span>
+        <span id="intro-progress-pct" style="color: #38bdf8;">0%</span>
+      </div>
+    </div>
+
+    <!-- Action Controls -->
+    <div class="intro-actions-row">
+      <button class="btn-launch-engine" id="btn-launch-engine">
+        <span>INITIALIZING ENGINE...</span>
+      </button>
+      <button class="btn-skip-intro" id="btn-skip-intro">Skip Intro</button>
+    </div>
+
+    <div class="intro-footer-credit">
+      Centurion University of Technology and Management &bull; CSE Major Project &bull; Scholar: <strong>Priya Ranjan Swain</strong>
+    </div>
+  </div>
+
+  <!-- Dynamic Live Aurora Waves -->
+  <div class="ambient-aurora aurora-1"></div>
+  <div class="ambient-aurora aurora-2"></div>
+  <div class="ambient-aurora aurora-3"></div>
+
+  <!-- Cyber Grid Subtle Structure -->
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- Interactive Neural Synapse Canvas (Live Background) -->
+  <canvas id="neural-canvas"></canvas>
+
+  <div class="container">
+
+    <!-- Top Hardware Telemetry Ribbon -->
+    <div class="telemetry-ribbon">
+      <div class="telemetry-group">
+        <span class="live-radar-dot">
+          <span class="radar-ping"></span>
+          <span class="radar-core"></span>
+        </span>
+        <span><strong>DistilBERT V4 Active</strong> &bull; RTX 3050 CUDA 12.8</span>
+      </div>
+      <div class="telemetry-group">
+        <button class="btn-live-toggle" id="btn-replay-intro" title="Replay Cinematic Intro Sequence" style="background: rgba(99, 102, 241, 0.15); border-color: rgba(99, 102, 241, 0.4); color: #a5b4fc;">
+          <span>▶</span>
+          <span>Replay Intro</span>
+        </button>
+        <span style="opacity: 0.25;">|</span>
+        <button class="btn-live-toggle" id="btn-open-privacy-ribbon" title="View Privacy Safeguards & Data Notice" style="background: rgba(16, 185, 129, 0.14); border-color: rgba(16, 185, 129, 0.4); color: #6ee7b7;">
+          <span style="display:inline-block; width:6px; height:6px; background:#10b981; border-radius:50%; box-shadow: 0 0 6px #10b981;"></span>
+          <span>🛡️ Privacy Guard: Active</span>
+        </button>
+        <span style="opacity: 0.25;">|</span>
+        <button class="btn-live-toggle" id="btn-toggle-canvas" title="Toggle Interactive Background Stream">
+          <span style="display:inline-block; width:6px; height:6px; background:#38bdf8; border-radius:50%;"></span>
+          <span id="canvas-status-text">Live Synapse Mesh: ON</span>
+        </button>
+        <span style="opacity: 0.25;">|</span>
+        <span class="metric-chip">Latency: <strong id="ribbon-latency">9.28 ms</strong></span>
+        <span style="opacity: 0.25;">|</span>
+        <span class="metric-chip">Accuracy: <strong style="color: #34d399;">97.94%</strong></span>
+        <span style="opacity: 0.25;">|</span>
+        <span class="metric-chip">Mean ROC-AUC: <strong style="color: #38bdf8;">0.9903</strong></span>
+      </div>
+    </div>
+
+    <!-- Main Hero Header -->
+    <header>
+      <div class="brand-eyebrow-container">
+        <div class="brand-cursive-line">
+          <span class="cursive-shield-icon">🛡️</span>
+          <span class="cursive-text-content">Enterprise AI Cyberbullying &amp; Toxicity Predictor</span>
+        </div>
+      </div>
+      <h1>Contextual <span class="brand-highlight">Moderation Engine</span></h1>
+      <p class="subtitle">Fine-grained multi-label language safety assessment with calibrated policy routing, dual-model cyberbullying taxonomy, and sub-10ms neural inference.</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-item active" data-tab="tab-single">
+        <span>🔍 Single Comment Inspector</span>
+      </button>
+      <button class="tab-item" data-tab="tab-batch">
+        <span>⚡ Multi-Comment Batch Analyzer</span>
+      </button>
+      <button class="tab-item" data-tab="tab-evidence">
+        <span>📊 Academic Evidence &amp; Visualizations</span>
+      </button>
+      <button class="tab-item" id="nav-btn-privacy">
+        <span>🛡️ Privacy Notice &amp; Safeguards</span>
+      </button>
+      <a href="/docs" target="_blank" class="tab-item" style="text-decoration: none; margin-left: auto; color: var(--accent);">
+        <span>⚡ Interactive Swagger (/docs) ↗</span>
+      </a>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: SINGLE COMMENT INSPECTOR           -->
+    <!-- ========================================== -->
+    <section class="tab-pane active" id="tab-single">
+      
+      <div class="glass-card">
+        
+        <!-- Presets Row -->
+        <div class="presets-container">
+          <span class="presets-label">Quick Presets:</span>
+          <button class="btn-preset" data-preset="benign">🟢 Constructive Academic</button>
+          <button class="btn-preset" data-preset="toxic">🔴 Harassment &amp; Insult</button>
+          <button class="btn-preset" data-preset="contextual">🟡 Linguistic Context / Slur</button>
+          <button class="btn-preset" data-preset="threat">⚠️ Severe Violence Threat</button>
+          <button class="btn-preset" data-preset="cyberbully">🟣 Religion / Identity Bias</button>
+          <button class="btn-preset" data-preset="privacy">🛡️ Doxxing / Contact PII</button>
+        </div>
+
+        <!-- Input Textarea -->
+        <div class="input-wrapper">
+          <textarea id="comment-input" class="comment-input" placeholder="Type or paste any comment text to evaluate for toxicity, insults, threats, obscene language, or targeted cyberbullying (Press Ctrl + Enter to analyze)..." maxlength="2000"></textarea>
+          <div class="input-foot">
+            <span class="char-pill" id="char-counter">0 / 2000</span>
+          </div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="controls-bar">
+          <div style="display: flex; gap: 0.65rem; align-items: center;">
+            <button class="btn-primary-action" id="btn-run-analysis">
+              <span class="spinner-ring" id="action-spinner"></span>
+              <span id="action-label">Run Neural Analysis</span>
+            </button>
+            <button class="btn-outline-action" id="btn-clear-input">Clear</button>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">
+            Shortcut: <kbd style="background: rgba(255,255,255,0.08); padding: 3px 7px; border-radius: 4px; color: #cbd5e1; font-family: monospace;">Ctrl + Enter</kbd>
+          </div>
+        </div>
+
+        <!-- Interactive Sensitivity Tuning Slider -->
+        <div class="threshold-tuning-box">
+          <div class="slider-group">
+            <span>Decision Threshold Sensitivity: <strong id="threshold-val-display" style="color: #ffffff;">0.50</strong></span>
+            <input type="range" id="threshold-slider" class="custom-range" min="0.10" max="0.90" step="0.05" value="0.50">
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">
+            Recommended: <strong>0.50</strong> (Balanced) &bull; <strong>0.75</strong> (Precision-Optimized)
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Alert Box -->
+      <div class="alert-banner" id="error-alert"></div>
+
+      <!-- Dual Results Grid -->
+      <div class="results-grid" id="results-display">
+        
+        <!-- Primary Model Card: Jigsaw 6-Head V4 -->
+        <div class="glass-card">
+          
+          <div class="result-hero-box">
+            <div class="hero-badge-group">
+              <span class="badge-decision non-toxic" id="pred-badge">
+                <span id="pred-icon">✅</span>
+                <span id="pred-text">Non-Toxic</span>
+              </span>
+            </div>
+
+            <!-- Radial Meter Gauge -->
+            <div class="gauge-wrapper">
+              <svg width="76" height="76" viewBox="0 0 76 76">
+                <circle class="gauge-circle-bg" cx="38" cy="38" r="32"></circle>
+                <circle class="gauge-circle-val" id="gauge-circle" cx="38" cy="38" r="32"></circle>
+              </svg>
+              <span class="gauge-text" id="gauge-percent">0%</span>
+            </div>
+          </div>
+
+          <!-- Privacy Guard Notification Banner -->
+          <div class="privacy-guard-banner" id="privacy-guard-banner" style="display: none;">
+            <div class="privacy-guard-left">
+              <span style="font-size: 1.25rem;">🛡️</span>
+              <div class="privacy-guard-text">
+                <strong id="privacy-guard-title" style="color: #34d399;">Privacy Guard Sanitization Active:</strong>
+                <span id="privacy-guard-details" style="color: #cbd5e1; margin-left: 0.35rem;">Zero PII detected.</span>
+              </div>
+            </div>
+            <button class="btn-outline-action" id="btn-toggle-redacted-view" style="padding: 0.35rem 0.75rem; font-size: 0.76rem; border-radius: 6px;">View Sanitized Input</button>
+            <div class="redacted-preview-drawer" id="redacted-preview-drawer"></div>
+          </div>
+
+          <!-- Policy Decision Banner -->
+          <div class="policy-decision-banner">
+            <div class="policy-title-row">
+              <span class="policy-action-name" id="action-name-text">ACTION: ALLOW</span>
+              <span class="pill-badge pill-None" id="severity-pill">SEVERITY: NONE</span>
+            </div>
+            <p class="policy-reason-text" id="reason-text">All six multi-label probabilities remain safely below the 0.50 decision threshold.</p>
+          </div>
+
+          <!-- Mini Stats Grid -->
+          <div class="stat-cards-grid">
+            <div class="stat-mini-card">
+              <div class="stat-number" id="stat-max-score" style="color: #38bdf8;">0.0%</div>
+              <div class="stat-label">Peak Probability</div>
+            </div>
+            <div class="stat-mini-card">
+              <div class="stat-number" id="stat-primary-driver" style="font-size: 1.15rem; color: #ffffff;">None</div>
+              <div class="stat-label">Primary Driver</div>
+            </div>
+            <div class="stat-mini-card">
+              <div class="stat-number" id="stat-labels-flagged">0</div>
+              <div class="stat-label">Labels Flagged</div>
+            </div>
+            <div class="stat-mini-card">
+              <div class="stat-number" id="stat-latency-val" style="color: #a855f7;">9.2 ms</div>
+              <div class="stat-label">Inference Time</div>
+            </div>
+          </div>
+
+          <!-- 6-Head Toxicity Probability Spectrum -->
+          <div class="section-headline">
+            <span>Six-Head Toxicity Probability Spectrum</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: none;">Marker at 50% threshold</span>
+          </div>
+
+          <div class="bars-collection" id="jigsaw-bars-collection"></div>
+
+          <!-- Card Footer with JSON Copy -->
+          <div class="card-footer-actions">
+            <span>Model: DistilBERT V4 &bull; Weights: models/jigsaw_v4</span>
+            <button class="btn-copy-json" id="btn-copy-raw-json">
+              <span>📋</span> Copy API Response JSON
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Secondary Model Card: 4-Class Cyberbullying Taxonomy -->
+        <div class="glass-card card-cyberbullying">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div>
+              <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.35rem; color: #c084fc;">Cyberbullying Taxonomy</h3>
+              <p style="font-size: 0.78rem; color: #a855f7; font-weight: 600; text-transform: uppercase;">Secondary 4-Class Model (Dataset 1)</p>
+            </div>
+            <span class="cb-top-badge" id="cb-status-badge">Verified Model</span>
+          </div>
+
+          <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.4rem;">
+            Classifies text into demographic harassment categories: <code style="color: #cbd5e1;">not_cyberbullying</code>, <code style="color: #cbd5e1;">ethnicity/race</code>, <code style="color: #cbd5e1;">gender/sexual</code>, or <code style="color: #cbd5e1;">religion</code>.
+          </p>
+
+          <div class="stat-cards-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="stat-mini-card">
+              <div class="stat-number" id="cb-primary-category" style="color: #c084fc; font-size: 1.15rem;">Clean</div>
+              <div class="stat-label">Identified Category</div>
+            </div>
+            <div class="stat-mini-card">
+              <div class="stat-number" id="cb-confidence-val">0.0%</div>
+              <div class="stat-label">Categorical Confidence</div>
+            </div>
+          </div>
+
+          <div class="section-headline" style="color: #d8b4fe; margin-top: 1.2rem;">
+            <span>Categorical Distribution (Softmax)</span>
+          </div>
+
+          <div class="bars-collection" id="cb-bars-collection"></div>
+
+          <div class="card-footer-actions" style="margin-top: 1rem;">
+            <span>Trained on cb_multi_labeled_balanced.csv</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #cbd5e1;">Accuracy: 77.33%</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: MULTI-COMMENT BATCH ANALYZER       -->
+    <!-- ========================================== -->
+    <section class="tab-pane" id="tab-batch">
+      <div class="glass-card">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Multi-Comment Batch Pipeline</h3>
+        <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Enter multiple comments (one per line, up to 10 comments) to run parallelized neural inference via <code style="color: #38bdf8;">/predict-batch</code>.
+        </p>
+
+        <textarea id="batch-input-field" class="batch-input-area" placeholder="Enter comments here, one per line...&#10;1. This is a very insightful article, thank you!&#10;2. You are an absolute idiot and a complete loser.&#10;3. I am going to find where you live and hurt you."></textarea>
+
+        <div style="display: flex; gap: 0.65rem; align-items: center; margin-bottom: 1.5rem;">
+          <button class="btn-primary-action" id="btn-run-batch">
+            <span class="spinner-ring" id="batch-spinner"></span>
+            <span>Process Batch Stream</span>
+          </button>
+          <button class="btn-outline-action" id="btn-load-sample-batch">Load Sample Batch</button>
+        </div>
+
+        <div id="batch-results-box" style="display: none;">
+          <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.15rem; margin-bottom: 0.85rem;">Batch Inference Results</h4>
+          <table class="styled-table" id="batch-results-table">
+            <thead>
+              <tr>
+                <th style="width: 4%;">#</th>
+                <th style="width: 38%;">Comment Snippet</th>
+                <th style="width: 15%;">Privacy Guard</th>
+                <th style="width: 13%;">Verdict</th>
+                <th style="width: 14%;">Policy Action</th>
+                <th style="width: 8%;">Peak Prob</th>
+                <th style="width: 8%;">Latency</th>
+              </tr>
+            </thead>
+            <tbody id="batch-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: ACADEMIC EVIDENCE & VISUALIZATIONS  -->
+    <!-- ========================================== -->
+    <section class="tab-pane" id="tab-evidence">
+      
+      <div class="glass-card">
+        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; margin-bottom: 0.4rem;">Model V4 Experimental Evidence</h3>
+        <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Empirical evaluation on 15,958 held-out test comments (Jigsaw Multi-Label Dataset) &bull; Centurion University B.Tech Major/Minor Project.
+        </p>
+
+        <!-- Key Academic Metrics Cards -->
+        <div class="stat-cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+          <div class="stat-mini-card">
+            <div class="stat-number" style="color: #34d399;">97.94%</div>
+            <div class="stat-label">Hamming Accuracy</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-number" style="color: #38bdf8;">90.87%</div>
+            <div class="stat-label">Subset Exact Match</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-number" style="color: #a855f7;">0.9903</div>
+            <div class="stat-label">Mean ROC-AUC</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-number" style="color: #f59e0b;">0.8099</div>
+            <div class="stat-label">Toxic-Class F1</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-number" style="color: #ffffff;">9.28 ms</div>
+            <div class="stat-label">Mean P50 Latency</div>
+          </div>
+        </div>
+
+        <!-- Per Label Table -->
+        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.15rem; margin-top: 1.75rem; margin-bottom: 0.75rem;">Per-Label Classification Report</h4>
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Target Label</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1-Score</th>
+              <th>Support</th>
+              <th>ROC-AUC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>toxic</strong></td><td>0.7503</td><td>0.8797</td><td><strong style="color: #34d399;">0.8099</strong></td><td>1,530</td><td>0.9848</td></tr>
+            <tr><td><strong>severe_toxic</strong></td><td>0.3492</td><td>0.8302</td><td>0.4916</td><td>159</td><td>0.9929</td></tr>
+            <tr><td><strong>obscene</strong></td><td>0.7302</td><td>0.9160</td><td><strong style="color: #34d399;">0.8126</strong></td><td>845</td><td>0.9923</td></tr>
+            <tr><td><strong>threat</strong></td><td>0.4054</td><td>0.6667</td><td>0.5042</td><td>45</td><td>0.9908</td></tr>
+            <tr><td><strong>insult</strong></td><td>0.6431</td><td>0.8793</td><td>0.7429</td><td>787</td><td>0.9894</td></tr>
+            <tr><td><strong>identity_hate</strong></td><td>0.4364</td><td>0.7254</td><td>0.5450</td><td>142</td><td>0.9917</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Visual Figures Gallery -->
+        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.5rem;">Empirical Research Figures (Click to Enlarge)</h4>
+        <div class="charts-gallery-grid">
+          
+          <div class="chart-thumbnail-card">
+            <img src="/static/fig_confusion_matrices.png" alt="Confusion Matrices" onclick="openLightbox(this.src, 'Six-Head Confusion Matrices (15,958 Test Comments)')">
+            <h4>Confusion Matrices</h4>
+            <p>True Positives vs False Positives across 6 heads</p>
+          </div>
+
+          <div class="chart-thumbnail-card">
+            <img src="/static/fig_per_label_prf.png" alt="Precision Recall F1" onclick="openLightbox(this.src, 'Per-Label Precision, Recall & F1 Scores')">
+            <h4>Precision, Recall &amp; F1</h4>
+            <p>Multi-label performance breakdown</p>
+          </div>
+
+          <div class="chart-thumbnail-card">
+            <img src="/static/fig_loss_curves.png" alt="Loss Curves" onclick="openLightbox(this.src, 'Training & Validation Loss Curves')">
+            <h4>Training &amp; Loss Curves</h4>
+            <p>Loss convergence across 3 epochs</p>
+          </div>
+
+          <div class="chart-thumbnail-card">
+            <img src="/static/cyberbully_fig_confusion_matrix.png" alt="Cyberbullying Confusion Matrix" onclick="openLightbox(this.src, 'Cyberbullying 4-Class Confusion Matrix')">
+            <h4>Cyberbullying Matrix</h4>
+            <p>4-Class demographic taxonomy matrix</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p><strong>Centurion University of Technology and Management</strong> &bull; Department of Computer Science &amp; Engineering</p>
+      <p style="font-size: 0.8rem; margin-top: 0.25rem;">Project Scholar: <strong>Priya Ranjan Swain</strong> &bull; Model Architecture: Fine-tuned DistilBERT (Model V4)</p>
+      <div class="academic-disclaimer">
+        <span>⚠️ Advisory Decision Support Engine — Automated actions should be paired with human appeal review workflows.</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification Popup -->
+  <div class="toast-popup" id="toast-notification">
+    <span style="color: #34d399;">✓</span>
+    <span id="toast-message">Copied JSON response to clipboard!</span>
+  </div>
+
+  <!-- Modal: Privacy Notice & Data Handling Architecture -->
+  <div class="lightbox-modal" id="privacy-modal" onclick="closePrivacyModal(event)">
+    <div class="lightbox-content" style="max-width: 720px; background: #0c1222; border: 1px solid rgba(16, 185, 129, 0.4); box-shadow: 0 25px 60px rgba(0,0,0,0.85); border-radius: 18px; padding: 2.2rem; text-align: left; align-items: flex-start; max-height: 85vh; overflow-y: auto;">
+      <button class="lightbox-close-btn" onclick="closePrivacyModal(event)">&times;</button>
+      
+      <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.85rem; width: 100%;">
+        <span style="font-size: 2rem;">🛡️</span>
+        <div>
+          <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; color: #ffffff;">Privacy-Aware Processing Architecture</h2>
+          <p style="font-size: 0.78rem; color: #34d399; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">GDPR Art. 5 (Data Minimization) &bull; India DPDP Act Aligned</p>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.4rem;">
+        AegisAI employs an automated in-flight data sanitization layer. All user comments undergo deterministic personal data scrubbing prior to transformer neural tokenization, guaranteeing that sensitive identifiers never reach persistent storage or neural representations.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1.4rem; width: 100%;">
+        
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem;">
+          <h4 style="color: #38bdf8; font-size: 0.92rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>⚡</span> In-Flight PII Redaction
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Detects and masks <strong>Phone Numbers (<code style="color:#67e8f9;">[PHONE]</code>)</strong>, <strong>Emails (<code style="color:#67e8f9;">[EMAIL]</code>)</strong>, <strong>Personal Names (<code style="color:#67e8f9;">[PERSON]</code>)</strong>, and <strong>Addresses / IPs (<code style="color:#67e8f9;">[ADDRESS]</code>)</strong>.
+          </p>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem;">
+          <h4 style="color: #34d399; font-size: 0.92rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🔒</span> Zero Disk Persistence
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Evaluations occur strictly in ephemeral GPU memory (VRAM). Raw texts and extracted PII are <strong>never stored</strong> in databases, disk caches, or persistent tables.
+          </p>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem;">
+          <h4 style="color: #c084fc; font-size: 0.92rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🚫</span> No Comment Logging
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Server access logs track only HTTP route status and inference latency (e.g. <code style="color:#e9d5ff;">POST /predict 200 OK 9.2ms</code>). Plaintext comments are never printed to logs.
+          </p>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1rem;">
+          <h4 style="color: #fbbf24; font-size: 0.92rem; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span>🎯</span> Preserved Accuracy
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Empirical benchmark testing confirms that replacing personal identifiers with neutral placeholder tokens preserves 100% of the model's toxicity and threat detection accuracy.
+          </p>
+        </div>
+
+      </div>
+
+      <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--safe); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.82rem; color: #cbd5e1; line-height: 1.5; width: 100%;">
+        <strong>Ethical Moderation Compliance:</strong> AegisAI guarantees that user identities are shielded against doxxing, re-identification, and demographic profiling.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal Lightbox for Images -->
+  <div class="lightbox-modal" id="image-lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close-btn" onclick="closeLightbox(event)">&times;</button>
+      <img id="lightbox-img" src="" alt="Enlarged Visual">
+      <h4 id="lightbox-caption" style="color: #ffffff; margin-top: 1rem; font-family: 'Outfit', sans-serif;"></h4>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- HIGH-PERFORMANCE INTERACTIVE NEURAL SYNAPSE CANVAS LOGIC -->
+  <!-- ======================================================== -->
+  <script>
+    (function initNeuralCanvas() {
+      const canvas = document.getElementById('neural-canvas');
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+      let isCanvasActive = true;
+
+      const btnToggle = document.getElementById('btn-toggle-canvas');
+      const statusText = document.getElementById('canvas-status-text');
+
+      // Mouse tracking
+      const mouse = {
+        x: null,
+        y: null,
+        radius: 170
+      };
+
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+
+      window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initParticles();
+      });
+
+      // Particle Configuration
+      const PARTICLE_COUNT = Math.min(Math.floor((width * height) / 14000), 95);
+      const MAX_DISTANCE = 135;
+      const particles = [];
+      const pulses = [];
+
+      const colorPalette = [
+        { r: 99, g: 102, b: 241 },   // Indigo
+        { r: 56, g: 189, b: 248 },   // Cyan
+        { r: 168, g: 85, b: 247 },   // Violet
+        { r: 52, g: 211, b: 153 }    // Emerald
+      ];
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.75;
+          this.vy = (Math.random() - 0.5) * 0.75;
+          this.radius = Math.random() * 2.2 + 1.2;
+          this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+          this.baseAlpha = Math.random() * 0.45 + 0.35;
+          this.currentAlpha = this.baseAlpha;
+          this.glowBoost = 0;
+        }
+
+        update() {
+          // Normal Drift
+          this.x += this.vx;
+          this.y += this.vy;
+
+          // Screen wrap/bounce
+          if (this.x < 0) this.x = width;
+          else if (this.x > width) this.x = 0;
+          if (this.y < 0) this.y = height;
+          else if (this.y > height) this.y = 0;
+
+          // Mouse interaction (gentle repulsion/excitement)
+          if (mouse.x !== null && mouse.y !== null) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius) {
+              const force = (mouse.radius - dist) / mouse.radius;
+              this.x -= (dx / dist) * force * 1.5;
+              this.y -= (dy / dist) * force * 1.5;
+              this.glowBoost = Math.min(this.glowBoost + 0.15, 0.8);
+            }
+          }
+
+          if (this.glowBoost > 0) {
+            this.glowBoost *= 0.94;
+          }
+        }
+
+        draw() {
+          const alpha = Math.min(this.currentAlpha + this.glowBoost, 1);
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius + this.glowBoost * 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+          ctx.shadowBlur = this.glowBoost * 12;
+          ctx.shadowColor = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0.8)`;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+
+      class SynapticPulse {
+        constructor(p1, p2) {
+          this.p1 = p1;
+          this.p2 = p2;
+          this.progress = 0;
+          this.speed = Math.random() * 0.02 + 0.015;
+          this.color = p1.color;
+        }
+
+        update() {
+          this.progress += this.speed;
+          return this.progress < 1;
+        }
+
+        draw() {
+          const curX = this.p1.x + (this.p2.x - this.p1.x) * this.progress;
+          const curY = this.p1.y + (this.p2.y - this.p1.y) * this.progress;
+          ctx.beginPath();
+          ctx.arc(curX, curY, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, 0.95)`;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 1)`;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+
+      function initParticles() {
+        particles.length = 0;
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      initParticles();
+
+      // Spawn pulses along connected nodes
+      setInterval(() => {
+        if (!isCanvasActive || particles.length < 2) return;
+        if (Math.random() < 0.65) {
+          const idx1 = Math.floor(Math.random() * particles.length);
+          const p1 = particles[idx1];
+          // Find a close neighbor
+          for (let j = 0; j < particles.length; j++) {
+            if (idx1 === j) continue;
+            const p2 = particles[j];
+            const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+            if (dist < MAX_DISTANCE) {
+              pulses.push(new SynapticPulse(p1, p2));
+              break;
+            }
+          }
+        }
+      }, 200);
+
+      // Animation Loop
+      function animate() {
+        if (!isCanvasActive) {
+          requestAnimationFrame(animate);
+          return;
+        }
+
+        ctx.clearRect(0, 0, width, height);
+
+        // Update and draw nodes
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+
+          // Connect to nearby nodes
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MAX_DISTANCE) {
+              const alpha = (1 - dist / MAX_DISTANCE) * 0.35;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+
+              const grad = ctx.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+              grad.addColorStop(0, `rgba(${particles[i].color.r}, ${particles[i].color.g}, ${particles[i].color.b}, ${alpha})`);
+              grad.addColorStop(1, `rgba(${particles[j].color.r}, ${particles[j].color.g}, ${particles[j].color.b}, ${alpha})`);
+
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+
+          // Connect to mouse cursor
+          if (mouse.x !== null && mouse.y !== null) {
+            const mDist = Math.hypot(mouse.x - particles[i].x, mouse.y - particles[i].y);
+            if (mDist < mouse.radius) {
+              const mAlpha = (1 - mDist / mouse.radius) * 0.45;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.strokeStyle = `rgba(56, 189, 248, ${mAlpha})`;
+              ctx.lineWidth = 1.2;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw ambient cursor spotlight on canvas
+        if (mouse.x !== null && mouse.y !== null) {
+          const radialGlow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 140);
+          radialGlow.addColorStop(0, 'rgba(56, 189, 248, 0.15)');
+          radialGlow.addColorStop(0.4, 'rgba(99, 102, 241, 0.08)');
+          radialGlow.addColorStop(0.7, 'rgba(192, 132, 252, 0.03)');
+          radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.beginPath();
+          ctx.arc(mouse.x, mouse.y, 140, 0, Math.PI * 2);
+          ctx.fillStyle = radialGlow;
+          ctx.fill();
+        }
+
+        // Draw traveling synaptic data packets
+        for (let i = pulses.length - 1; i >= 0; i--) {
+          if (pulses[i].update()) {
+            pulses[i].draw();
+          } else {
+            pulses.splice(i, 1);
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // Kinetic Wave Trigger on Typing
+      window.triggerNeuralWave = function() {
+        particles.forEach(p => {
+          p.glowBoost = Math.min(p.glowBoost + 0.35, 1);
+          p.x += (Math.random() - 0.5) * 4;
+          p.y += (Math.random() - 0.5) * 4;
+        });
+      };
+
+      // Toggle Button
+      btnToggle.addEventListener('click', () => {
+        isCanvasActive = !isCanvasActive;
+        canvas.style.opacity = isCanvasActive ? '0.85' : '0';
+        statusText.textContent = isCanvasActive ? 'Live Synapse Mesh: ON' : 'Live Synapse Mesh: OFF';
+        btnToggle.style.background = isCanvasActive ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.05)';
+      });
+    })();
+  </script>
+
+  <!-- ======================================================== -->
+  <!-- APPLICATION BUSINESS LOGIC & INTERFACE MANAGEMENT        -->
+  <!-- ======================================================== -->
+  <script>
+    // State management
+    let lastPrimaryResponse = null;
+    let currentThreshold = 0.50;
+
+    // DOM Elements
+    const commentInput = document.getElementById('comment-input');
+    const charCounter = document.getElementById('char-counter');
+    const btnRunAnalysis = document.getElementById('btn-run-analysis');
+    const actionSpinner = document.getElementById('action-spinner');
+    const actionLabel = document.getElementById('action-label');
+    const btnClearInput = document.getElementById('btn-clear-input');
+    const errorAlert = document.getElementById('error-alert');
+    const resultsDisplay = document.getElementById('results-display');
+    const thresholdSlider = document.getElementById('threshold-slider');
+    const thresholdValDisplay = document.getElementById('threshold-val-display');
+
+    // Primary Display Elements
+    const predBadge = document.getElementById('pred-badge');
+    const predIcon = document.getElementById('pred-icon');
+    const predText = document.getElementById('pred-text');
+    const gaugeCircle = document.getElementById('gauge-circle');
+    const gaugePercent = document.getElementById('gauge-percent');
+    const actionNameText = document.getElementById('action-name-text');
+    const severityPill = document.getElementById('severity-pill');
+    const reasonText = document.getElementById('reason-text');
+    const statMaxScore = document.getElementById('stat-max-score');
+    const statPrimaryDriver = document.getElementById('stat-primary-driver');
+    const statLabelsFlagged = document.getElementById('stat-labels-flagged');
+    const statLatencyVal = document.getElementById('stat-latency-val');
+    const ribbonLatency = document.getElementById('ribbon-latency');
+    const jigsawBarsCollection = document.getElementById('jigsaw-bars-collection');
+    const btnCopyRawJson = document.getElementById('btn-copy-raw-json');
+
+    // Secondary Display Elements
+    const cbPrimaryCategory = document.getElementById('cb-primary-category');
+    const cbConfidenceVal = document.getElementById('cb-confidence-val');
+    const cbStatusBadge = document.getElementById('cb-status-badge');
+    const cbBarsCollection = document.getElementById('cb-bars-collection');
+
+    // Toast & Lightbox
+    const toastNotification = document.getElementById('toast-notification');
+    const toastMessage = document.getElementById('toast-message');
+    const imageLightbox = document.getElementById('image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+
+    // Privacy Guard Elements & Modals
+    const privacyGuardBanner = document.getElementById('privacy-guard-banner');
+    const privacyGuardTitle = document.getElementById('privacy-guard-title');
+    const privacyGuardDetails = document.getElementById('privacy-guard-details');
+    const btnToggleRedactedView = document.getElementById('btn-toggle-redacted-view');
+    const redactedPreviewDrawer = document.getElementById('redacted-preview-drawer');
+    const privacyModal = document.getElementById('privacy-modal');
+    const btnOpenPrivacyRibbon = document.getElementById('btn-open-privacy-ribbon');
+    const navBtnPrivacy = document.getElementById('nav-btn-privacy');
+
+    // Presets Mapping
+    const PRESETS = {
+      benign: "I truly appreciate how well-structured this research methodology is. Keep up the great collaborative work!",
+      toxic: "You are a totally useless idiot and an utter waste of human life, delete your account now!",
+      contextual: "In academic linguistics, researchers study slurs to understand harassment, but quoting one in a paper is purely educational.",
+      threat: "I swear I will track down where you live and burn your house to the ground tonight!",
+      cyberbully: "People of your religion have no right to exist in our country, you should all be kicked out!",
+      privacy: "I despise Dr. Robert Davis, his personal cell is +1 (555) 349-1029 and email is rdavis@university.edu, fire this fraud immediately!"
+    };
+
+    // Navigation Tab Switching
+    document.querySelectorAll('.tab-item[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const targetId = btn.getAttribute('data-tab');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // Character Counter + Typing Wave in Background Canvas
+    commentInput.addEventListener('input', () => {
+      const len = commentInput.value.length;
+      charCounter.textContent = `${len} / 2000`;
+      if (len > 1900) {
+        charCounter.style.color = '#ef4444';
+      } else {
+        charCounter.style.color = 'var(--text-muted)';
+      }
+      if (window.triggerNeuralWave) {
+        window.triggerNeuralWave();
+      }
+    });
+
+    // Hotkey Ctrl + Enter
+    commentInput.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        triggerAnalysis();
+      }
+    });
+
+    // Preset Buttons
+    document.querySelectorAll('.btn-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-preset');
+        if (PRESETS[key]) {
+          commentInput.value = PRESETS[key];
+          commentInput.dispatchEvent(new Event('input'));
+          triggerAnalysis();
+        }
+      });
+    });
+
+    // Clear Button
+    btnClearInput.addEventListener('click', () => {
+      commentInput.value = '';
+      commentInput.dispatchEvent(new Event('input'));
+      resultsDisplay.style.display = 'none';
+      errorAlert.style.display = 'none';
+    });
+
+    // Threshold Slider
+    thresholdSlider.addEventListener('input', (e) => {
+      currentThreshold = parseFloat(e.target.value);
+      thresholdValDisplay.textContent = currentThreshold.toFixed(2);
+      if (lastPrimaryResponse) {
+        recomputeDecisionWithThreshold(lastPrimaryResponse, currentThreshold);
+      }
+    });
+
+    btnRunAnalysis.addEventListener('click', triggerAnalysis);
+
+    async function triggerAnalysis() {
+      const text = commentInput.value.trim();
+      errorAlert.style.display = 'none';
+
+      if (!text) {
+        displayError("Please enter comment text before initiating neural analysis.");
+        return;
+      }
+      if (text.length > 2000) {
+        displayError(`Comment length (${text.length} chars) exceeds the maximum allowed 2,000 characters.`);
+        return;
+      }
+
+      setLoadingState(true);
+      if (window.triggerNeuralWave) {
+        window.triggerNeuralWave();
+      }
+
+      try {
+        const [pRes, cbRes] = await Promise.all([
+          fetch('/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text })
+          }),
+          fetch('/predict-cyberbully', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text })
+          }).catch(() => null)
+        ]);
+
+        if (!pRes.ok) {
+          const errPayload = await pRes.json().catch(() => ({}));
+          displayError(errPayload.detail || `Server returned error HTTP ${pRes.status}.`);
+          resultsDisplay.style.display = 'none';
+          return;
+        }
+
+        const primaryData = await pRes.json();
+        lastPrimaryResponse = primaryData;
+        renderPrimaryResults(primaryData, currentThreshold);
+
+        if (cbRes && cbRes.ok) {
+          const cbData = await cbRes.json().catch(() => null);
+          if (cbData) renderCyberbullyResults(cbData);
+        }
+
+      } catch (err) {
+        displayError("Could not connect to neural backend. Please ensure the local server is running on http://127.0.0.1:8000.");
+        resultsDisplay.style.display = 'none';
+      } finally {
+        setLoadingState(false);
+      }
+    }
+
+    function setLoadingState(isLoading) {
+      btnRunAnalysis.disabled = isLoading;
+      actionSpinner.style.display = isLoading ? 'inline-block' : 'none';
+      actionLabel.textContent = isLoading ? 'Inferring on RTX 3050...' : 'Run Neural Analysis';
+    }
+
+    function displayError(msg) {
+      errorAlert.textContent = msg;
+      errorAlert.style.display = 'block';
+    }
+
+    // Render Primary Model (Jigsaw 6-Head)
+    function renderPrimaryResults(data, threshold) {
+      resultsDisplay.style.display = 'grid';
+
+      recomputeDecisionWithThreshold(data, threshold);
+
+      statLatencyVal.textContent = `${data.inference_ms} ms`;
+      ribbonLatency.textContent = `${data.inference_ms} ms`;
+
+      // Privacy Guard Telemetry Rendering
+      if (data.privacy) {
+        privacyGuardBanner.style.display = 'flex';
+        if (data.privacy.pii_detected) {
+          const typesStr = (data.privacy.types_detected || []).map(t => `[${t.toUpperCase()}]`).join(', ');
+          privacyGuardTitle.textContent = "Privacy Guard Masked Sensitive PII:";
+          privacyGuardTitle.style.color = "#f59e0b";
+          privacyGuardDetails.textContent = `${data.privacy.total_redactions} entity item(s) sanitized (${typesStr}) before neural tokenization.`;
+          btnToggleRedactedView.style.display = 'inline-block';
+          btnToggleRedactedView.textContent = 'View Sanitized Input';
+          redactedPreviewDrawer.style.display = 'none';
+          redactedPreviewDrawer.innerHTML = `<strong>Redacted Input passed to Model:</strong><br><span style="color:#e2e8f0;">${escapeHtml(data.privacy.redacted_text)}</span>`;
+        } else {
+          privacyGuardTitle.textContent = "Privacy Guard Sanitization Active:";
+          privacyGuardTitle.style.color = "#34d399";
+          privacyGuardDetails.textContent = "Scanned clean. Zero sensitive personal identifiers detected.";
+          btnToggleRedactedView.style.display = 'none';
+          redactedPreviewDrawer.style.display = 'none';
+        }
+      } else {
+        privacyGuardBanner.style.display = 'none';
+      }
+
+      resultsDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Dynamic Threshold Recomputation
+    function recomputeDecisionWithThreshold(data, threshold) {
+      const probs = data.probabilities;
+      const detected = Object.entries(probs).filter(([_, p]) => p >= threshold).map(([k, _]) => k);
+      const isToxic = detected.length > 0;
+
+      // Update Verdict Badge
+      predBadge.className = 'badge-decision ' + (isToxic ? 'toxic' : 'non-toxic');
+      predIcon.textContent = isToxic ? '⚠️' : '✅';
+      predText.textContent = isToxic ? 'Toxic' : 'Non-Toxic';
+
+      // Update SVG Circular Gauge
+      const maxScore = Math.max(...Object.values(probs));
+      const maxScorePct = (maxScore * 100).toFixed(1);
+      gaugePercent.textContent = `${maxScorePct}%`;
+      statMaxScore.textContent = `${maxScorePct}%`;
+      statLabelsFlagged.textContent = detected.length;
+      statPrimaryDriver.textContent = data.highest_label;
+
+      const circleLength = 200; // 2 * PI * 32 approx ~201
+      const offset = circleLength - (circleLength * (maxScorePct / 100));
+      gaugeCircle.style.strokeDashoffset = offset;
+
+      if (maxScore >= threshold) {
+        gaugeCircle.style.stroke = '#ef4444';
+      } else if (maxScore >= 0.3) {
+        gaugeCircle.style.stroke = '#f59e0b';
+      } else {
+        gaugeCircle.style.stroke = '#10b981';
+      }
+
+      // Contextual Moderation Policy Logic
+      let calculatedSeverity = "None";
+      let calculatedAction = "ALLOW";
+      let calculatedReason = `All label probabilities remain below threshold ${threshold.toFixed(2)}.`;
+
+      if (probs["severe_toxic"] >= threshold || probs["threat"] >= threshold) {
+        calculatedSeverity = "Critical";
+        calculatedAction = "BLOCK_AND_ESCALATE";
+        calculatedReason = `Direct violence, physical threat or severe toxicity triggered priority safety escalation.`;
+      } else if (probs["identity_hate"] >= threshold) {
+        calculatedSeverity = "High";
+        calculatedAction = "SHADOWBAN_FLAG";
+        calculatedReason = `Targeted hate speech towards protected group detected; suppressed from public feeds.`;
+      } else if (probs["insult"] >= threshold && probs["obscene"] >= threshold) {
+        calculatedSeverity = "Moderate";
+        calculatedAction = "FLAG_AND_REDACT";
+        calculatedReason = `Co-occurrence of explicit vulgarity and personal insults requires automated content redaction.`;
+      } else if (isToxic) {
+        calculatedSeverity = "Low";
+        calculatedAction = "FLAG_FOR_REVIEW";
+        calculatedReason = `Toxicity score exceeds ${threshold.toFixed(2)}; routed to queue for human moderator confirmation.`;
+      }
+
+      actionNameText.textContent = `ACTION: ${calculatedAction}`;
+      severityPill.textContent = `SEVERITY: ${calculatedSeverity.toUpperCase()}`;
+      severityPill.className = `pill-badge pill-${calculatedSeverity}`;
+      reasonText.textContent = calculatedReason;
+
+      // Render Horizontal Spectral Bars
+      jigsawBarsCollection.innerHTML = '';
+      for (const [lbl, prob] of Object.entries(probs)) {
+        const pct = (prob * 100).toFixed(1);
+        const isFlagged = prob >= threshold;
+        const color = isFlagged ? '#ef4444' : (prob >= 0.3 ? '#f59e0b' : '#38bdf8');
+
+        const row = document.createElement('div');
+        row.className = 'spectrum-row';
+        row.innerHTML = `
+          <div class="spectrum-header">
+            <span>${lbl} ${isFlagged ? '<span style="color:#ef4444; font-size: 0.75rem;">[FLAGGED]</span>' : ''}</span>
+            <span style="color: ${color}; font-family: 'JetBrains Mono', monospace;">${pct}%</span>
+          </div>
+          <div class="spectrum-rail">
+            <div class="spectrum-cutoff" style="left: ${threshold * 100}%" title="Threshold: ${(threshold * 100).toFixed(0)}%"></div>
+            <div class="spectrum-fill" style="width: ${pct}%; background-color: ${color}; box-shadow: 0 0 10px ${color}35;"></div>
+          </div>
+        `;
+        jigsawBarsCollection.appendChild(row);
+      }
+    }
+
+    // Render Secondary Model (Cyberbullying)
+    function renderCyberbullyResults(data) {
+      cbPrimaryCategory.textContent = data.top_class;
+      cbConfidenceVal.textContent = `${data.confidence_percent}%`;
+
+      if (data.cyberbully_detected) {
+        cbStatusBadge.textContent = 'Harassment Vector Detected';
+        cbStatusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+        cbStatusBadge.style.color = '#fca5a5';
+        cbStatusBadge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+      } else {
+        cbStatusBadge.textContent = 'Clean / Non-Harassment';
+        cbStatusBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+        cbStatusBadge.style.color = '#34d399';
+        cbStatusBadge.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      }
+
+      cbBarsCollection.innerHTML = '';
+      for (const [cls, prob] of Object.entries(data.probabilities)) {
+        const pct = (prob * 100).toFixed(1);
+        const isTop = (cls === data.top_class);
+        const barColor = isTop ? (data.cyberbully_detected ? '#c084fc' : '#10b981') : '#64748b';
+
+        const row = document.createElement('div');
+        row.className = 'spectrum-row';
+        row.innerHTML = `
+          <div class="spectrum-header">
+            <span>${cls} ${isTop ? '★' : ''}</span>
+            <span style="color: ${barColor}; font-family: 'JetBrains Mono', monospace;">${pct}%</span>
+          </div>
+          <div class="spectrum-rail">
+            <div class="spectrum-fill" style="width: ${pct}%; background-color: ${barColor};"></div>
+          </div>
+        `;
+        cbBarsCollection.appendChild(row);
+      }
+    }
+
+    // Copy JSON to Clipboard
+    btnCopyRawJson.addEventListener('click', () => {
+      if (!lastPrimaryResponse) return;
+      navigator.clipboard.writeText(JSON.stringify(lastPrimaryResponse, null, 2)).then(() => {
+        showToast("Copied full API response JSON to clipboard!");
+      }).catch(() => {
+        showToast("Failed to access clipboard.");
+      });
+    });
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toastNotification.classList.add('show');
+      setTimeout(() => {
+        toastNotification.classList.remove('show');
+      }, 2500);
+    }
+
+    // Lightbox Logic
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption;
+      imageLightbox.style.display = 'flex';
+    }
+
+    function closeLightbox(e) {
+      if (e.target === imageLightbox || e.target.classList.contains('lightbox-close-btn')) {
+        imageLightbox.style.display = 'none';
+      }
+    }
+
+    // Privacy Drawer Toggle Logic
+    btnToggleRedactedView.addEventListener('click', () => {
+      const isVisible = redactedPreviewDrawer.style.display === 'block';
+      redactedPreviewDrawer.style.display = isVisible ? 'none' : 'block';
+      btnToggleRedactedView.textContent = isVisible ? 'View Sanitized Input' : 'Hide Sanitized Input';
+    });
+
+    // Privacy Modal Open/Close Logic
+    function openPrivacyModal() {
+      if (privacyModal) privacyModal.style.display = 'flex';
+    }
+    function closePrivacyModal(e) {
+      if (!privacyModal) return;
+      if (e.target === privacyModal || e.target.classList.contains('lightbox-close-btn') || e.target.tagName === 'BUTTON') {
+        privacyModal.style.display = 'none';
+      }
+    }
+    window.closePrivacyModal = closePrivacyModal;
+    if (btnOpenPrivacyRibbon) btnOpenPrivacyRibbon.addEventListener('click', openPrivacyModal);
+    if (navBtnPrivacy) navBtnPrivacy.addEventListener('click', openPrivacyModal);
+
+    // TAB 2: Batch Processing
+    const batchInputField = document.getElementById('batch-input-field');
+    const btnRunBatch = document.getElementById('btn-run-batch');
+    const batchSpinner = document.getElementById('batch-spinner');
+    const btnLoadSampleBatch = document.getElementById('btn-load-sample-batch');
+    const batchResultsBox = document.getElementById('batch-results-box');
+    const batchTableBody = document.getElementById('batch-table-body');
+
+    btnLoadSampleBatch.addEventListener('click', () => {
+      batchInputField.value = [
+        "1. This project documentation is exceptionally clear and well presented.",
+        "2. You are an incompetent fraud and everybody hates you.",
+        "3. Reach me at contact@secureserver.net or call +1 (555) 349-1029 if you have any questions.",
+        "4. I will track you down at 742 Evergreen Terrace and break your neck you coward.",
+        "5. Get lost you filthy degenerate piece of garbage.",
+        "6. In academic linguistics, offensive terms are analyzed in quoted contexts.",
+        "7. I hope you and your entire family suffer a painful accident.",
+        "8. Thank you for your insightful feedback on our pull request!",
+        "9. You are so utterly stupid that it physically hurts to read this.",
+        "10. Excellent contribution to the open source community."
+      ].join('\n');
+    });
+
+    btnRunBatch.addEventListener('click', async () => {
+      // Split lines, trim, and filter out completely empty lines
+      const rawLines = batchInputField.value
+        .split('\n')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+      if (rawLines.length === 0) {
+        showToast("Please enter at least one comment in the batch box.");
+        return;
+      }
+      if (rawLines.length > 50) {
+        showToast("Maximum 50 comments per batch request.");
+        return;
+      }
+
+      btnRunBatch.disabled = true;
+      batchSpinner.style.display = 'inline-block';
+
+      try {
+        const res = await fetch('/predict-batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ texts: rawLines })
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          let errorMsg = "Batch inference error.";
+          if (err && err.detail) {
+            if (Array.isArray(err.detail)) {
+              errorMsg = err.detail.map(d => d.msg || JSON.stringify(d)).join('; ');
+            } else if (typeof err.detail === 'string') {
+              errorMsg = err.detail;
+            }
+          }
+          showToast(errorMsg);
+          return;
+        }
+
+        const data = await res.json();
+        if (!data || !Array.isArray(data.results)) {
+          showToast("Invalid response format received from batch endpoint.");
+          return;
+        }
+        renderBatchTable(data.results);
+        showToast(`Successfully processed ${data.results.length} comments!`);
+      } catch (err) {
+        console.error("Batch inference error:", err);
+        showToast("Error processing batch: " + (err.message || "Failed to communicate with server."));
+      } finally {
+        btnRunBatch.disabled = false;
+        batchSpinner.style.display = 'none';
+      }
+    });
+
+    function renderBatchTable(results) {
+      batchResultsBox.style.display = 'block';
+      batchTableBody.innerHTML = '';
+
+      results.forEach((r, idx) => {
+        const isTox = (r.prediction === 'Toxic');
+        const badgeClass = isTox ? 'pill-High' : 'pill-None';
+        const rawText = r.text || r.text_snippet || 'No text';
+        const displaySnippet = r.text_snippet || (rawText.length > 85 ? rawText.substring(0, 85) + '...' : rawText);
+
+        const priv = r.privacy;
+        let privacyBadge = '<span class="pill-badge pill-None" style="font-size: 0.72rem; color: #6ee7b7; border-color: rgba(16,185,129,0.3);">🛡️ Clean</span>';
+        if (priv && priv.pii_detected) {
+          const typesLabel = (priv.types_detected || []).map(t => t.toUpperCase()).join('+');
+          privacyBadge = `<span class="pill-badge pill-Moderate" style="font-size: 0.72rem; color: #fde68a;" title="Masked ${priv.total_redactions} PII item(s)">🛡️ [${escapeHtml(typesLabel)}]</span>`;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${idx + 1}</strong></td>
+          <td style="font-size: 0.86rem; color: #e2e8f0;" title="${escapeHtml(rawText)}">${escapeHtml(displaySnippet)}</td>
+          <td>${privacyBadge}</td>
+          <td><span class="pill-badge ${badgeClass}">${escapeHtml(r.prediction || 'Unknown')}</span></td>
+          <td><code style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #cbd5e1;">${escapeHtml(r.moderation_action || 'ALLOW')}</code></td>
+          <td style="font-family: 'JetBrains Mono', monospace; color: ${isTox ? '#f87171' : '#34d399'}; font-weight: 600;">${r.score_percent !== undefined ? r.score_percent : (r.score ? (r.score * 100).toFixed(1) : 0)}%</td>
+          <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #94a3b8;">${r.inference_ms || 0} ms</td>
+        `;
+        batchTableBody.appendChild(tr);
+      });
+
+      batchResultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function escapeHtml(text) {
+      if (text === null || text === undefined) return '';
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // ========================================================
+    // CINEMATIC INTRO SEQUENCER LOGIC
+    // ========================================================
+    (function initCinematicIntro() {
+      const intro = document.getElementById('cinematic-intro');
+      const step1 = document.getElementById('intro-step-1');
+      const step2 = document.getElementById('intro-step-2');
+      const step3 = document.getElementById('intro-step-3');
+      const step4 = document.getElementById('intro-step-4');
+      const progressFill = document.getElementById('intro-progress-fill');
+      const progressPct = document.getElementById('intro-progress-pct');
+      const btnLaunch = document.getElementById('btn-launch-engine');
+      const btnSkip = document.getElementById('btn-skip-intro');
+      const btnReplay = document.getElementById('btn-replay-intro');
+
+      let introTimer = null;
+      let isIntroDismissed = false;
+
+      function runIntroSequence() {
+        if (!intro) return;
+        isIntroDismissed = false;
+        intro.classList.remove('intro-dismissed');
+        intro.style.display = 'flex';
+
+        // Reset state
+        [step1, step2, step3, step4].forEach(s => {
+          if (!s) return;
+          s.className = 'intro-telemetry-item';
+          const icon = s.querySelector('.step-icon');
+          if (icon) icon.textContent = '○';
+        });
+        if (progressFill) progressFill.style.width = '0%';
+        if (progressPct) progressPct.textContent = '0%';
+        if (btnLaunch) {
+          btnLaunch.className = 'btn-launch-engine';
+          btnLaunch.innerHTML = `<span>INITIALIZING ENGINE...</span>`;
+        }
+
+        // Step 1: 300ms
+        setTimeout(() => {
+          if (isIntroDismissed) return;
+          if (step1) {
+            step1.className = 'intro-telemetry-item active';
+            const icon = step1.querySelector('.step-icon');
+            if (icon) icon.textContent = '✓';
+          }
+          if (progressFill) progressFill.style.width = '25%';
+          if (progressPct) progressPct.textContent = '25%';
+        }, 300);
+
+        // Step 2: 750ms
+        setTimeout(() => {
+          if (isIntroDismissed) return;
+          if (step2) {
+            step2.className = 'intro-telemetry-item active';
+            const icon = step2.querySelector('.step-icon');
+            if (icon) icon.textContent = '✓';
+          }
+          if (progressFill) progressFill.style.width = '55%';
+          if (progressPct) progressPct.textContent = '55%';
+        }, 750);
+
+        // Step 3: 1250ms
+        setTimeout(() => {
+          if (isIntroDismissed) return;
+          if (step3) {
+            step3.className = 'intro-telemetry-item active';
+            const icon = step3.querySelector('.step-icon');
+            if (icon) icon.textContent = '✓';
+          }
+          if (progressFill) progressFill.style.width = '80%';
+          if (progressPct) progressPct.textContent = '80%';
+        }, 1250);
+
+        // Step 4: 1750ms
+        setTimeout(() => {
+          if (isIntroDismissed) return;
+          if (step4) {
+            step4.className = 'intro-telemetry-item active';
+            const icon = step4.querySelector('.step-icon');
+            if (icon) icon.textContent = '✓';
+          }
+          if (progressFill) progressFill.style.width = '100%';
+          if (progressPct) progressPct.textContent = '100%';
+          if (btnLaunch) {
+            btnLaunch.classList.add('ready');
+            btnLaunch.innerHTML = `<span>ENTER DASHBOARD ➔</span>`;
+          }
+        }, 1750);
+
+        // Auto transition into the app at 3.5 seconds
+        introTimer = setTimeout(() => {
+          dismissIntro();
+        }, 3500);
+      }
+
+      function dismissIntro() {
+        if (isIntroDismissed || !intro) return;
+        isIntroDismissed = true;
+        if (introTimer) clearTimeout(introTimer);
+        intro.classList.add('intro-dismissed');
+        setTimeout(() => {
+          intro.style.display = 'none';
+        }, 850);
+      }
+
+      if (btnLaunch) btnLaunch.addEventListener('click', dismissIntro);
+      if (btnSkip) btnSkip.addEventListener('click', dismissIntro);
+
+      if (btnReplay) {
+        btnReplay.addEventListener('click', () => {
+          runIntroSequence();
+        });
+      }
+
+      // Execute on page load
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        runIntroSequence();
+      } else {
+        window.addEventListener('DOMContentLoaded', runIntroSequence);
+      }
+    })();
+
+    // ========================================================
+    // INTERACTIVE CURSOR AMBIENT SPOTLIGHT FOLLOWER
+    // ========================================================
+    (function initCursorSpotlight() {
+      const glow = document.getElementById('cursor-light-glow');
+      if (!glow) return;
+
+      let targetX = -500;
+      let targetY = -500;
+      let currentX = -500;
+      let currentY = -500;
+      let isVisible = false;
+
+      window.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!isVisible) {
+          isVisible = true;
+          glow.style.opacity = '1';
+        }
+      });
+
+      window.addEventListener('mouseleave', () => {
+        isVisible = false;
+        glow.style.opacity = '0';
+      });
+
+      // Animation loop with smooth easing (pure spotlight)
+      function animateCursorLight() {
+        if (isVisible) {
+          // Smooth glide for ambient aura (lerp factor 0.14)
+          currentX += (targetX - currentX) * 0.14;
+          currentY += (targetY - currentY) * 0.14;
+          glow.style.left = `${currentX}px`;
+          glow.style.top = `${currentY}px`;
+        }
+        requestAnimationFrame(animateCursorLight);
+      }
+      animateCursorLight();
+    })();
+  </script>
+</body>
+</html>

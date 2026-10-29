@@ -1,0 +1,14 @@
+{
+  "model_version": "Cyberbully V1",
+  "base_model": "distilbert-base-uncased",
+  "classes": [
+    "not_cyberbullying",
+    "ethnicity/race",
+    "gender/sexual",
+    "religion"
+  ],
+  "max_len": 96,
+  "best_val_macro_f1": 0.635,
+  "test_macro_f1": 0.6581,
+  "test_accuracy": 0.7733
+}

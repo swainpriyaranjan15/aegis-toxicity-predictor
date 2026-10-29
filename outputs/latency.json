@@ -1,0 +1,13 @@
+{
+  "device": "cuda",
+  "device_name": "Tier 1 - NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "num_requests": 50,
+  "mean_latency_ms": 9.28,
+  "p50_latency_ms": 8.88,
+  "p90_latency_ms": 12.94,
+  "p95_latency_ms": 14.63,
+  "p99_latency_ms": 17.35,
+  "min_latency_ms": 5.96,
+  "max_latency_ms": 19.12,
+  "batch_size": 1
+}

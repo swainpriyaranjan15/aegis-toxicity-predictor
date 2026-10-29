@@ -1,0 +1,26 @@
+# Ignore dataset files (not needed for inference)
+data/
+
+# Ignore large training checkpoints (inference only needs model.safetensors)
+models/**/checkpoint_latest.pt
+models/**/*.pt
+
+# Ignore dev and local files
+.git/
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+tests/
+outputs/
+*.bat
+cloudflared.exe
+.gemini/
+.agents/
+scratch/
+README.md
+PROGRESS.md
+render.yaml
+report

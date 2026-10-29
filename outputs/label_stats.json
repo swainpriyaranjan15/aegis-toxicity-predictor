@@ -1,0 +1,24 @@
+{
+  "total_rows_raw": 159571,
+  "total_rows_cleaned": 159571,
+  "zero_label_count": 143346,
+  "zero_label_percentage": 89.83,
+  "two_plus_label_count": 9865,
+  "two_plus_label_percentage": 6.18,
+  "label_counts": {
+    "toxic": 15294,
+    "severe_toxic": 1595,
+    "obscene": 8449,
+    "threat": 478,
+    "insult": 7877,
+    "identity_hate": 1405
+  },
+  "label_percentages": {
+    "toxic": 9.58,
+    "severe_toxic": 1.0,
+    "obscene": 5.29,
+    "threat": 0.3,
+    "insult": 4.94,
+    "identity_hate": 0.88
+  }
+}
